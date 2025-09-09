@@ -1,103 +1,143 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import ExportControls from "@/components/export-controls";
+import MemeCanvas from "@/components/meme-canvas";
+import TextControls from "@/components/text-controls";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import UploadControls from "@/components/upload-controls";
+import i18n from "../../public/locales/i18";
+import { useTranslation } from "react-i18next";
+import { useMemeGenerator } from "../app/hooks/useMeneGenerator";
+const Home = () => {
+  const {
+    image,
+    stageSize,
+    stageRef,
+    handleImageUpload,
+    addText,
+    updateText,
+    setSelectedId,
+    deleteText,
+    resetCanvas,
+    exportImage,
+    textElements,
+    selectedId,
+  } = useMemeGenerator();
+const { t } = useTranslation("common"); // Move useTranslation inside the component
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gray-50 p-4">
+      <div className="mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Controls Panel */}
+          <div className="lg:col-span-1 space-y-6">
+            {/* Upload Controls */}
+            <div className="bg-white p-4 rounded-lg shadow">
+              <h2 className="text-xl font-semibold mb-4">{t("upload_image")}</h2>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                placeholder={t("upload_image")}
+                className="w-full text-gray-700"
+              />
+            </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {/* Text Controls */}
+            {image && (
+              <div className="bg-white p-4 rounded-lg shadow">
+                <h2 className="text-xl font-semibold mb-4">{t("text_controls")}</h2>
+                <button
+                  onClick={addText}
+                  className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+                >
+                  {t("add_text")}
+                </button>
+                {textElements.map((el) => (
+                  <div key={el.id} className="mt-4">
+                    <input
+                      type="text"
+                      value={el.text}
+                      onChange={(e) => updateText(el.id, e.target.value)}
+                      className="w-full border border-gray-300 p-2 rounded"
+                    />
+                    <button
+                      onClick={() => deleteText(el.id)}
+                      className="mt-2 w-full bg-red-600 text-white py-1 rounded hover:bg-red-700 transition"
+                    >
+                      {t("delete")}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Export Controls */}
+            {image && (
+              <div className="bg-white p-4 rounded-lg shadow">
+                <h2 className="text-xl font-semibold mb-4">{t("export")}</h2>
+                <button
+                  onClick={exportImage}
+                  className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+                >
+                  {t("export_image")}
+                </button>
+                <button onClick={resetCanvas} className="mt-2 w-full bg-gray-600 text-white py-2 rounded hover:bg-gray-700 transition">
+                  {t("reset")}
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Meme Canvas */}
+          <div className="lg:col-span-2 bg-white p-4 rounded-lg shadow flex justify-center items-center">
+            <div
+              className="border border-dashed border-gray-300 w-full h-full flex justify-center items-center"
+              style={{ minHeight: "400px" }}
+            >
+              {image ? (
+                <div
+                  className="relative"
+                  style={{
+                    width: stageSize.width,
+                    height: stageSize.height,
+                    backgroundImage: `url(${image.src})`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                  }}
+                >
+                  {textElements.map((el) => (
+                    <div
+                      key={el.id}
+                      contentEditable
+                      suppressContentEditableWarning
+                      onClick={() => setSelectedId(el.id)}
+                      style={{
+                        position: "absolute",
+                        top: el.y,
+                        left: el.x,
+                        fontSize: el.fontSize,
+                        color: el.fill,
+                        WebkitTextStroke: `${el.strokeWidth}px ${el.stroke}`,
+                        fontFamily: el.fontFamily,
+                        textAlign: el.align as any,
+                        cursor: "move",
+                        userSelect: selectedId === el.id ? "text" : "none",
+                        outline: selectedId === el.id ? "1px solid blue" : "none",
+                      }}
+                    >
+                      {el.text}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-400">Upload an image to start</p>
+              )}
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
+export default Home;
