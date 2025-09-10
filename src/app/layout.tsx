@@ -1,5 +1,4 @@
 "use client";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
@@ -42,7 +41,7 @@ export default function RootLayout({
     <html lang="en">
       <body
       >
-        <header className="p-1 header-bg border-b mb-4 relative">
+        <header className="p-1 header-bg border-b mb-4 relative header-sticky">
           <LanguageSwitcher />
           <h1 className="text-4xl font-bold text-center">{t("meme_tool")}</h1>
           <p className="text-center text-lg mb-3 text-gray-500">{t("description")}</p>

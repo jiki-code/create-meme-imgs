@@ -126,3 +126,9 @@
 header {
   background-color: var(--color-header-bg);
 }
+
+.header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}

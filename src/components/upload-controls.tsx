@@ -3,6 +3,7 @@ import { RotateCcw, Upload } from "lucide-react";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import { useTranslation } from "react-i18next";
 
 interface UploadControlsProps {
   onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -13,18 +14,19 @@ export default function UploadControls({
   onImageUpload,
   onReset,
 }: UploadControlsProps) {
+  const { t } = useTranslation("common"); 
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Upload className="w-5 h-5" />
-          Upload Image
+          {t("upload_image")}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           <div>
-            <Label>Choose Image (JPG/PNG)</Label>
+            <Label>{t("choose_image")}</Label>
             <Input
               type="file"
               accept="image/jpeg,image/png"
@@ -38,7 +40,7 @@ export default function UploadControls({
             className="w-full bg-transparent"
           >
             <RotateCcw className="w-4 h-4 mr-2" />
-            Reset Canvas
+            {t("reset")}
           </Button>
         </div>
       </CardContent>

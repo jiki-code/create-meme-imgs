@@ -17,6 +17,9 @@ i18n
           export: "Export",
           export_image: "Export Image",
           reset: "Reset",
+          choose_image: "Choose Image (JPG/PNG)",
+          choose_color: "Choose Color",
+          color_code: "Color Code",
         },
       },
       vi: {
@@ -31,6 +34,10 @@ i18n
           export: "Xuất ảnh",
           export_image: "Xuất hình ảnh",
           reset: "Đặt lại",
+          choose_image: "Chọn hình ảnh (JPG/PNG)",
+          choose_color: "Chọn màu",
+          color_code: "Mã màu",
+
         },
       },
     },

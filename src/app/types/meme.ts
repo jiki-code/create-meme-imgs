@@ -15,3 +15,7 @@ export interface TextElement {
   fontFamily: string
   align: string
 }
+
+export interface ColorElement {
+  color: string
+}

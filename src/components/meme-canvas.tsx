@@ -3,20 +3,25 @@ import { Upload } from "lucide-react";
 import { Layer, Stage, Image as KonvaImage } from "react-konva";
 import DraggableText from "./dragable-text";
 import Konva from "konva";
+
 interface MemeCanvasProps {
   image: HTMLImageElement | null;
   textElements: TextElement[];
   stageSize: StageSize;
   onSelectText: (id: string) => void;
   stageRef: React.RefObject<Konva.Stage | null>;
+  color: string; // Add a color prop
 }
+
 export default function MemeCanvas({
   image,
   textElements,
   stageSize,
   onSelectText,
   stageRef,
+  color, // Destructure the color prop
 }: MemeCanvasProps) {
+  console.log("Rendering MemeCanvas with image:", image, "and textElements:", textElements);
   if (!image) {
     return (
       <div
@@ -46,7 +51,10 @@ export default function MemeCanvas({
           {textElements.map((textEl) => (
             <DraggableText
               key={textEl.id}
-              textProps={textEl}
+              textProps={{
+                ...textEl,
+                fill: color || textEl.fill || "white", // Use the color prop or fallback to textEl.fill
+              }}
               onSelect={() => onSelectText(textEl.id)}
             />
           ))}

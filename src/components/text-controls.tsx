@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { TextElement } from "@/types/meme";
+import { TextElement } from "../app/types/meme";
+import EmojiPicker from './ui/emoji';
 
 interface TextControlsProps {
   hasImage: boolean;
@@ -21,7 +22,7 @@ export default function TextControls({
   onUpdateText,
   onDeleteText,
 }: TextControlsProps) {
-  const selectedText = textElements.find((el) => el.id === selectedId);
+  const selectedText = textElements ? textElements.find((el) => el.id === selectedId) : null;
 
   return (
     <>
@@ -46,14 +47,15 @@ export default function TextControls({
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div>
-                <Label>Text Content</Label>
-                <Input
-                  className="mt-1"
-                  placeholder="Enter meme text..."
-                  value={selectedText.text}
-                  onChange={(e) => onUpdateText(selectedId, e.target.value)}
-                />
+              <div className="space-y-2 w-full">
+                  <Label>Text Content</Label>
+                  <Input
+                    className="mt-1 "
+                    placeholder="Enter meme text..."
+                    value={selectedText.text}
+                    onChange={(e) => onUpdateText(selectedId, e.target.value)}
+                  />
+               <EmojiPicker  onEmojiClick={(emoji: string) =>  onUpdateText(selectedId, selectedText.text + emoji)} />
               </div>
               <Button
                 variant="destructive"
