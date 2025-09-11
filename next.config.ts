@@ -5,7 +5,10 @@ module.exports = {
   i18n,
 };
 const nextConfig: NextConfig = {
-  i18n
+  i18n,
+  images: {
+    domains: ["i.imgflip.com"],
+  },
 };
 
 export default nextConfig;

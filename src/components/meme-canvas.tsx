@@ -41,8 +41,8 @@ export default function MemeCanvas({
       className="border-2 border-dashed border-gray-300 rounded-lg overflow-hidden"
       style={{ width: stageSize.width, height: stageSize.height }}
     >
-      <Stage width={stageSize.width} height={stageSize.height} ref={stageRef}>
-        <Layer>
+      <Stage id="myImage" width={stageSize.width} height={stageSize.height} ref={stageRef}>
+        <Layer >
           <KonvaImage
             image={image}
             width={stageSize.width}

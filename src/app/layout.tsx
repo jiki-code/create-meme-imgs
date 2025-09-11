@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import i18n from "../../public/locales/i18"; // Adjust the import path if needed
 import {SelectInput} from "../components/ui/select-input";
-
+import ToastProvider from "./ToastProvider";
+import { Providers } from "./Providers";
 function LanguageSwitcher() {
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -41,12 +42,13 @@ export default function RootLayout({
     <html lang="en">
       <body
       >
-        <header className="p-1 header-bg border-b mb-4 relative header-sticky">
+        <header className="p-1 header-bg border-b relative header-sticky">
           <LanguageSwitcher />
           <h1 className="text-4xl font-bold text-center">{t("meme_tool")}</h1>
           <p className="text-center text-lg mb-3 text-gray-500">{t("description")}</p>
         </header>
-        {children}
+        <Providers>{children}</Providers>
+        <ToastProvider />
       </body>
     </html>
   );

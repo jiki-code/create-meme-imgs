@@ -1,19 +1,31 @@
 import { Download } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
-import ExportControlsProps from "../app/types/general";
+import { MemeList } from "./ui/meme-list";
+
+import {ExportControlsProps} from "../app/types/general";
+import * as React from "react"
+
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../app/redux/store";
 
 export default function ExportControls({
   hasImage,
   onExport,
   onSaveDraft
 }: ExportControlsProps) {
+  const images = useSelector((state: RootState) => state.images.list)
+  console.log("🚀 ~ ExportControls ~ images:", images)
   return (
+    <>
+    {images && images.length > 0 && (
+        <MemeList memes={images} />)}
+  
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Download className="w-5 h-5" />
-          SAVE VERSION
+          SAVE VERSION:
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -30,5 +42,8 @@ export default function ExportControls({
           
       </CardContent>
     </Card>
+    </>
+
+
   );
 }

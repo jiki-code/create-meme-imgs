@@ -1,14 +1,14 @@
 "use client";
-
+ 
 import ExportControls from "@/components/export-controls";
 import MemeCanvas from "@/components/meme-canvas";
 import TextControls from "@/components/text-controls";
-
+import TemplateSelector from "@/components/template-selector";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import UploadControls from "@/components/upload-controls";
 import UploadColorPicker from "@/components/upload-color-picker";
 import { useFunction } from "./hooks/useFunction";
-import React from "react";
+import * as React from "react"
 const Home = () => {
   const {
     image,
@@ -26,20 +26,22 @@ const Home = () => {
     handleColorChange,
     saveDraft,
     color,
+    selecetTheme
   } = useFunction();
-
-  // Move useTranslation inside the component
+ 
   return (
     <div className="min-h-screen bg-gray-50 p-3">
       <div className="mx-auto">
         <div className="w-full flex sm:flex-row flex-col gap-2">
           {/* Controls Panel */}
           <div className="sm:w-2/12 w-full flex flex-col gap-3">
-            <UploadControls
+          <UploadControls
               onImageUpload={handleImageUpload}
               onReset={resetCanvas}
             />
-            <UploadColorPicker onColorChange={handleColorChange} />
+          <TemplateSelector onImageUpload={selecetTheme} />            
+
+            {/* <UploadColorPicker onColorChange={handleColorChange} />
             <TextControls
               hasImage={!!image}
               onAddText={addText}
@@ -47,7 +49,7 @@ const Home = () => {
               textElements={textElements}
               onUpdateText={updateText}
               onDeleteText={deleteText}
-            />
+            /> */}
           </div>
           {/* Canvas Area */}
           <div className="sm:w-8/12 w-full flex flex-col gap-2">
@@ -70,7 +72,6 @@ const Home = () => {
             <div className="sm:w-2/12 w-full flex flex-col gap-3">
               <ExportControls hasImage={!!image} onExport={exportImage} onSaveDraft={saveDraft} />
             </div>
-
         </div>
       </div>
     </div>
