@@ -1,24 +1,23 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Palette } from "lucide-react";
-import { Label } from "./ui/label";
 import ColorPicker from "./ui/color-picker";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
-
+import { colorBackground  } from "../app/data/common";
 type UploadColorPickerProps = {
   onColorChange: (color: string) => void;
+  onBackgroundChange: (bg: string | ((prev: string) => string)) => void;
 };
-export default function UploadColorPicker({ onColorChange }: UploadColorPickerProps) {
+export default function UploadColorPicker({
+  onColorChange,
+  onBackgroundChange,
+}: UploadColorPickerProps) {
   const { t } = useTranslation("common");
-  const [color, setColor] = useState("#ffffff");
-
   // Pass color change to parent if needed
   const handleColorChange = (newColor: string) => {
-    setColor(newColor);
     onColorChange(newColor);
   };
-  
+
   return (
     <>
       <Card>
@@ -29,15 +28,50 @@ export default function UploadColorPicker({ onColorChange }: UploadColorPickerPr
               {t("choose_color")}
             </CardTitle>
           </CardHeader>
-          <div className="space-y-4">
+          <div className="space-y-1">
             <div>
               <ColorPicker
                 onColorChange={handleColorChange}
+                title={t('text_color')}
+              />
+              {/* choose background */}
+
+              <div className="flex pt-2 flex-nowrap gap-1 w-full">
+                {colorBackground.map((color) => (
+                  <button
+                    key={color}
+                    className="w-6 h-6 rounded-full ring-offset-2 ring-gray-400 cursor-pointer"
+                    style={{ backgroundColor: color }}
+                    onClick={() => onBackgroundChange(color)}
+                  />
+                ))}
+              </div>
+              {/* input opacity */}
+              <div className="pt-2">
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.1"
+                defaultValue="1"
+                onChange={(e) => {
+                  const opacity = parseFloat(e.target.value);
+                  onBackgroundChange((prev: any) => {
+                    if (prev.includes('rgba')) {
+                      return prev.replace(/[\d\.]+\)$/g, `${opacity})`);
+                    }
+                    // Convert hex to rgba
+                    const hex = prev.replace('#', '');
+                    const r = parseInt(hex.substring(0, 2), 16);
+                    const g = parseInt(hex.substring(2, 4), 16);
+                    const b = parseInt(hex.substring(4, 6), 16);
+                    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+                  });
+                }}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
-            <Label>
-              {t("color_code")} <span>{color}</span>
-            </Label>
+            </div>
           </div>
         </CardContent>
       </Card>

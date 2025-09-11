@@ -6,6 +6,7 @@ import i18n from "../../public/locales/i18"; // Adjust the import path if needed
 import {SelectInput} from "../components/ui/select-input";
 import ToastProvider from "./ToastProvider";
 import { Providers } from "./Providers";
+import {languageList} from "../app/data/common"
 function LanguageSwitcher() {
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -20,10 +21,7 @@ function LanguageSwitcher() {
   return (
     <div className="w-full flex justify-end left-0">
       <SelectInput
-        options={[
-          { label: "English", value: "en" },
-          { label: "Vietnamese", value: "vi" },
-        ]}
+        options={languageList}
         value={i18n.language}
         onChange={changeLanguage}
       />
@@ -41,13 +39,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
+      className="overflow-hidden min-h-screen"
       >
         <header className="p-1 header-bg border-b relative header-sticky">
           <LanguageSwitcher />
-          <h1 className="text-4xl font-bold text-center">{t("meme_tool")}</h1>
-          <p className="text-center text-lg mb-3 text-gray-500">{t("description")}</p>
+          <h1 className="text-3xl lg:text-4xl font-bold text-center">{t("meme_tool")}</h1>
+          <p className="text-center text-lg lg:text-md my-2 text-gray-600">{t("description")}</p>
         </header>
-        <Providers>{children}</Providers>
+       <Providers>
+          {children}
+        </Providers>
         <ToastProvider />
       </body>
     </html>

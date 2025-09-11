@@ -5,7 +5,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { TextElement } from "../app/types/meme";
 import EmojiPicker from './ui/emoji';
-
+import { useTranslation } from "react-i18next";
 interface TextControlsProps {
   hasImage: boolean;
   onAddText: () => void;
@@ -23,19 +23,19 @@ export default function TextControls({
   onDeleteText,
 }: TextControlsProps) {
   const selectedText = textElements ? textElements.find((el) => el.id === selectedId) : null;
-
+  const {t} = useTranslation('common')
   return (
     <>
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Type className="w-5 h-5" />
-            Add Text
+             {t('add_text')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <Button className="w-full" onClick={onAddText} disabled={!hasImage}>
-            Add Text
+             {t('add_text')}
           </Button>
         </CardContent>
       </Card>
@@ -43,12 +43,12 @@ export default function TextControls({
       {selectedId && selectedText && (
         <Card>
           <CardHeader>
-            <CardTitle>Edit Text</CardTitle>
+            <CardTitle> {t('edit_text')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="space-y-2 w-full">
-                  <Label>Text Content</Label>
+                  <Label>{t('text_content')}</Label>
                   <Input
                     className="mt-1 "
                     placeholder="Enter meme text..."
@@ -62,7 +62,7 @@ export default function TextControls({
                 className="w-full"
                 onClick={() => onDeleteText(selectedId)}
               >
-                Delete Text
+               {t('delete_text')}
               </Button>
             </div>
           </CardContent>

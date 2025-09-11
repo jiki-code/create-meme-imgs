@@ -148,12 +148,12 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #9ce3f8;
+  background: #3678ad;
   border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #3678ad;
+  background: #93b2cc;
 }
 
 
@@ -163,6 +163,7 @@ header {
 
 .header-sticky {
   position: sticky;
+  min-height: 90px;
   top: 0;
   z-index: 20;
   border-radius: 0px 0px 10px 10px;

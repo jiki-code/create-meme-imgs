@@ -1,9 +1,7 @@
-import * as React from "react"
-import { cn } from "../../app/lib/utils";
+import * as React from "react";
 import { SelectProps } from "@/app/types/select";
 
-
-export function SelectInput<T extends string | number>({
+function SelectInput<T extends string | number>({
   options,
   value,
   onChange,
@@ -13,7 +11,7 @@ export function SelectInput<T extends string | number>({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value as T)}
-      className={`border border-gray-400 rounded-xl px-2 py-2 focus:outline-none focus:ring-2 ${className}`}
+      className={`border border-white rounded-xl px-3 py-2 focus:outline-none ${className}`}
     >
       {options.map((opt) => (
         <option key={opt.value} value={opt.value}>
@@ -23,3 +21,5 @@ export function SelectInput<T extends string | number>({
     </select>
   );
 }
+
+export { SelectInput };

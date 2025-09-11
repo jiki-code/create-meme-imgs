@@ -1,6 +1,6 @@
 "use client";
- 
-import ExportControls from "@/components/export-controls";
+
+import SaveVersion from "@/components/save-version";
 import MemeCanvas from "@/components/meme-canvas";
 import TextControls from "@/components/text-controls";
 import TemplateSelector from "@/components/template-selector";
@@ -8,7 +8,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import UploadControls from "@/components/upload-controls";
 import UploadColorPicker from "@/components/upload-color-picker";
 import { useFunction } from "./hooks/useFunction";
-import * as React from "react"
+import * as React from "react";
+import { useSelector } from "react-redux";
+import { Loading } from "@/components/ui/loading";
+import { RootState } from "../app/redux/store";
 const Home = () => {
   const {
     image,
@@ -24,57 +27,76 @@ const Home = () => {
     textElements,
     selectedId,
     handleColorChange,
+    handleBackgroundChange,
     saveDraft,
     color,
-    selecetTheme
+    bgColor,
+    selecetTheme,
+    onChangeImage,
   } = useFunction();
- 
-  return (
-    <div className="min-h-screen bg-gray-50 p-3">
-      <div className="mx-auto">
-        <div className="w-full flex sm:flex-row flex-col gap-2">
-          {/* Controls Panel */}
-          <div className="sm:w-2/12 w-full flex flex-col gap-3">
-          <UploadControls
-              onImageUpload={handleImageUpload}
-              onReset={resetCanvas}
-            />
-          <TemplateSelector onImageUpload={selecetTheme} />            
+  const isLoading = useSelector((state: RootState) => state.loading.isLoading);
 
-            {/* <UploadColorPicker onColorChange={handleColorChange} />
-            <TextControls
-              hasImage={!!image}
-              onAddText={addText}
-              selectedId={selectedId}
-              textElements={textElements}
-              onUpdateText={updateText}
-              onDeleteText={deleteText}
-            /> */}
-          </div>
-          {/* Canvas Area */}
-          <div className="sm:w-8/12 w-full flex flex-col gap-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Canvas</CardTitle>
-              </CardHeader>
-              <CardContent className="flex justify-center">
-                <MemeCanvas
-                  color={color?.color || "#ffffff"} // Pass the selected color or default to white
-                  image={image}
-                  stageRef={stageRef}
-                  stageSize={stageSize}
-                  textElements={textElements}
-                  onSelectText={setSelectedId}
+  return (
+    <>
+      {isLoading ? (
+        <Loading message="Loading..." />
+      ) : (
+        <div className="bg-gray-50 p-3 overflow-hidden">
+          <div className="mx-auto">
+            <div className="w-full flex lg:flex-row flex-col gap-2">
+              {/* Controls Panel */}
+              <div className="lg:w-3/12 xl:w-2/12 w-full flex flex-col gap-3  max-h-[80vh] overflow-y-auto custom-scrollbar">
+                <UploadControls
+                  onImageUpload={handleImageUpload}
+                  onReset={resetCanvas}
                 />
-              </CardContent>
-            </Card>
-          </div>
-            <div className="sm:w-2/12 w-full flex flex-col gap-3">
-              <ExportControls hasImage={!!image} onExport={exportImage} onSaveDraft={saveDraft} />
+                <TemplateSelector onImageUpload={selecetTheme} />
+
+                <UploadColorPicker
+                  onBackgroundChange={handleBackgroundChange}
+                  onColorChange={handleColorChange}
+                />
+                <TextControls
+                  hasImage={!!image}
+                  onAddText={addText}
+                  selectedId={selectedId}
+                  textElements={textElements}
+                  onUpdateText={updateText}
+                  onDeleteText={deleteText}
+                />
+              </div>
+              {/* Canvas Area */}
+              <div className="lg:w-6/12 xl:w-8/12 w-full flex flex-col gap-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Canvas</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex justify-center">
+                    <MemeCanvas
+                      color={color?.color || "#ffffff"} // Pass the selected color or default to white
+                      image={image}
+                      stageRef={stageRef}
+                      stageSize={stageSize}
+                      textElements={textElements}
+                      onSelectText={setSelectedId}
+                      bgColor={bgColor}
+                    />
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="lg:w-3/12 xl:w-2/12 w-full flex flex-col   max-h-[80vh] overflow-y-auto gap-3 custom-scrollbar">
+                <SaveVersion
+                  onChangeImage={onChangeImage}
+                  hasImage={!!image}
+                  onExport={exportImage}
+                  onSaveDraft={saveDraft}
+                />
+              </div>
             </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 export default Home;

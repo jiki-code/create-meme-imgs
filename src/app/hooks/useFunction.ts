@@ -1,34 +1,35 @@
 "use client";
 
-import { ColorElement, StageSize, TextElement } from "../types/meme";
+import { ColorElement, StageSize, TextElement, BackgroundElement } from "../types/meme";
 import {
   calculateStageSize,
   loadImageFromFile,
   urlToBase64,
-  getImageSrcFromFile
+  getImageSrcFromFile,
 } from "../utils/imgs";
 import Konva from "konva";
 import { useCallback, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
+import { showLoading, hideLoading } from '../redux/loading';
 import {
-  setImages,
   addImage,
-  removeImage,
   clearImages,
-} from "@/app/redux/imageSlice";
+} from "@/app/redux/imagesMeme";
 export const useFunction = () => {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
-  const [fileNotEdit, setFileNotEdit] = useState<string | null>('');
+  const [fileNotEdit, setFileNotEdit] = useState<string | null>("");
   const [stageSize, setStageSize] = useState<StageSize>({
-    width: 700,
-    height: 600,
+    width: 750,
+    height: 625,
   });
   const [textElements, setTextElements] = useState<TextElement[]>([]);
   const [color, setColor] = useState<ColorElement | null>(null);
+  const [bgColor, setBgColor] = useState<string>("#ffffff");
   const [timesSave, setTimesSave] = useState(<number>0);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const stageRef = useRef<Konva.Stage>(null);
+
   const dispatch = useDispatch();
 
   const handleAddImage = () => {
@@ -37,14 +38,14 @@ export const useFunction = () => {
       pixelRatio: 2,
       mimeType: "image/png",
     });
-    
 
     dispatch(
       addImage({
         id: randomDigits(12),
-        text: textElements.map((t) => t.text).join(", "),
+        text: textElements,
         image: fileNotEdit,
         fullUrl: imageData,
+        isActive: false
       })
     );
   };
@@ -55,16 +56,20 @@ export const useFunction = () => {
       if (!file) return;
 
       try {
+        dispatch(showLoading())
         const img = await loadImageFromFile(file);
         const src = await getImageSrcFromFile(file);
         const newStageSize = calculateStageSize(img);
         setStageSize(newStageSize);
         setImage(img);
         setTextElements([]);
-        setFileNotEdit(src)
+        setFileNotEdit(src);
+        toast.success("Added image successful!");
+          dispatch(hideLoading())
 
       } catch (error) {
         console.error("Error loading image:", error);
+          dispatch(hideLoading())
       }
     },
     []
@@ -102,8 +107,11 @@ export const useFunction = () => {
     setImage(null);
     setTextElements([]);
     setSelectedId(null);
-    setStageSize({ width: 600, height: 600 });
+    setStageSize({ width: 750, height: 625 });
     dispatch(clearImages());
+    setTimesSave(0)
+    toast.success("Reset successful!");
+
   }, []);
 
   const exportImage = useCallback(async () => {
@@ -115,33 +123,40 @@ export const useFunction = () => {
       mimeType: "image/png",
     });
     const link = document.createElement("a");
-    link.download = "meme.png";
+    link.download = `meme_${Math.random() * 99}.png`;
     link.href = uri;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    toast.success("Exported file successful!");
   }, []);
 
   const handleColorChange = useCallback((color: string) => {
-    setColor({ color });
+    setColor({color} );
+  }, []);
+
+  const handleBackgroundChange = useCallback((bg: string) => {
+    setBgColor( bg );
   }, []);
 
   const saveDraft = useCallback(() => {
     if (!image) {
       toast.warning("No image to save!");
       return;
-    } 
-    else if (timesSave > 2) {
+    } else if (timesSave > 2) {
       toast.warning("Maximum of 3 saves reached!");
       return;
     }
-    handleAddImage();
+    dispatch(showLoading())
     setTimesSave(timesSave + 1);
-    toast.success("Draft saved!");
+    handleAddImage();
+    toast.success("Saved successful!");
+    dispatch(hideLoading())
   }, [image, timesSave]);
 
   const selecetTheme = async (event: any) => {
     if (!event) return;
+     dispatch(showLoading())
 
     try {
       const base64 = await urlToBase64(event.url);
@@ -151,11 +166,17 @@ export const useFunction = () => {
         const newStageSize = calculateStageSize(img);
         setStageSize(newStageSize);
         setImage(img);
-        setFileNotEdit(event.url)
+        setFileNotEdit(event.url);
         setTextElements([]);
+        dispatch(clearImages());
+        setTimesSave(0)
+        toast.success("Added image successful!");
+
       }, 100);
+      dispatch(hideLoading())
     } catch (error) {
       console.error("Error loading image:", error);
+        dispatch(hideLoading())
     }
   };
 
@@ -166,6 +187,27 @@ export const useFunction = () => {
     }
     return Number(result);
   };
+
+  const onChangeImage = async (event: any) => {
+    if (!event) return;
+      dispatch(showLoading())
+
+    try {
+      const base64 = await urlToBase64(event.fullUrl);
+      const img = new Image();
+      img.src = base64;
+      setTimeout(() => {
+        const newStageSize = calculateStageSize(img);
+        setStageSize(newStageSize);
+        setImage(img);
+         setTextElements(event.text);
+      }, 100);
+       dispatch(hideLoading())
+    } catch (error) {
+       dispatch(hideLoading())
+    }
+  };
+ 
 
   return {
     image,
@@ -181,8 +223,11 @@ export const useFunction = () => {
     resetCanvas,
     exportImage,
     handleColorChange,
+    handleBackgroundChange,
     color,
+    bgColor,
     saveDraft,
     selecetTheme,
+    onChangeImage
   };
 };

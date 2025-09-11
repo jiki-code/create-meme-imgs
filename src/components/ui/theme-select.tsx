@@ -6,12 +6,14 @@ import { Modal } from "./modal";
 import { useDispatch } from "react-redux";
 import clsx from "clsx";
 import { setTemplates } from "@/app/redux/templateSelected";
-import { memes } from "@/app/data/meme";
+import { memes } from "../../app/data/common";
 import { ChildProps, ThemeSelect } from "@/app/types/general";
+import { useTranslation } from "react-i18next";
 
 const ThemeSelector = ({ onSelected }: ChildProps) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
   const dispatch = useDispatch();
+  const {t} = useTranslation('common');
   const [item, setItem] = React.useState<ThemeSelect>({
     id: "",
     title: "",
@@ -33,11 +35,11 @@ const ThemeSelector = ({ onSelected }: ChildProps) => {
     <>
       <div className="py-1 px-6">
         <Button onClick={() => setOpen(true)} className="w-full cursor-pointer">
-          Template
+          {t('template')}
         </Button>
       </div>
       <Modal open={open} onClose={() => setOpen(false)}>
-        <h2 className="font-semibold text-xl text-center">CHỌN MEME MẪU</h2>
+        <h2 className="font-semibold text-xl text-center">{t('select_template')}</h2>
 
         <div className="p-4 bg-blue-50 rounded-md overflow-y-auto max-h-[80vh] mt-5 custom-scrollbar">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">

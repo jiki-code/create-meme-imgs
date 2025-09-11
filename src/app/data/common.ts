@@ -56,3 +56,32 @@ export const memes: Meme[] = [
     url: "https://i.imgflip.com/1otk96.jpg"
   }
 ]
+
+export const waterMark: string = "laoho.tv";
+
+export const colorBackground: string[] = [
+  "#c9c9c9",
+  "#539fc2ff",
+  "#10b981",
+  "#f97316",
+  "#be895dff",
+  "#333",
+  "#eef079ff",
+];
+
+export const acceptedImageTypes: string[] = [
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+  "image/svg+xml",
+  "image/bmp",
+  "image/tiff",
+  "image/x-icon",
+];
+
+export const languageList: any = [
+  { label: "Vietnamese", value: "vi" },
+  { label: "English", value: "en" },
+];
+

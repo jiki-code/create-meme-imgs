@@ -5,10 +5,10 @@ import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 import {EmojiPickerProps} from "@/app/types/general";
 
 export default function customEmojiPicker({ onEmojiClick }: EmojiPickerProps) {
-  const [showPicker, setShowPicker] = React.useState(false);
+  const [showPicker, setShowPicker] = React.useState<boolean>(false);
   const pickerRef = React.useRef<HTMLDivElement>(null);
 
-  // Đóng picker khi click ra ngoài
+  // close picker when click out 
   React.useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) {
@@ -35,7 +35,7 @@ export default function customEmojiPicker({ onEmojiClick }: EmojiPickerProps) {
 
       {showPicker && (
         <div className="absolute bottom-full mb-2 z-50 shadow-lg">
-          <EmojiPicker onEmojiClick={handleEmojiClick} theme="light" />
+          <EmojiPicker onEmojiClick={handleEmojiClick}  />
         </div>
       )}
     </div>

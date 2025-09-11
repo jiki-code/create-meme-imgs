@@ -1,6 +1,6 @@
 export const loadImageFromFile = (file: File): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
-    if (!file || (file.type !== "image/jpeg" && file.type !== "image/png")) {
+    if (!file) {
       reject(new Error("Invalid file type"))
       return
     }
@@ -20,7 +20,7 @@ export const loadImageFromFile = (file: File): Promise<HTMLImageElement> => {
 
 export function getImageSrcFromFile(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
-    if (!file || (file.type !== "image/jpeg" && file.type !== "image/png")) {
+    if (!file) {
       reject(new Error("Invalid file type"));
       return;
     }
@@ -47,8 +47,8 @@ export async function urlToBase64(url: string): Promise<string> {
 }
 
 export const calculateStageSize = (img: HTMLImageElement) => {
-  const maxWidth = 600
-  const maxHeight = 600
+  const maxWidth = 750
+  const maxHeight = 625
   const aspectRatio = img.width / img.height
 
   let newWidth = maxWidth

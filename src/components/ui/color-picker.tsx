@@ -1,19 +1,21 @@
 'use client';
 import * as React from "react"
+import { Label } from "../ui/label";
 
 type ColorPickerProps = {
   onColorChange: (color: string) => void;
+  title: string
 };
-const DEFAULT_COLOR = "#fff";
+const DEFAULT_COLOR = "#333";
 
-const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
+const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange, title }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onColorChange(e.target.value);
   };
 
   return (
     <div className="flex items-center mb-2">
-      <label htmlFor="background">Background :</label>
+      <Label>{title}</Label>
       <input
         defaultValue={DEFAULT_COLOR}
         id="background"

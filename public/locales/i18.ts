@@ -17,9 +17,20 @@ i18n
           export: "Export",
           export_image: "Export Image",
           reset: "Reset",
-          choose_image: "Choose Image (JPG/PNG)",
+          choose_image: "Choose Image",
           choose_color: "Choose Color",
           color_code: "Color Code",
+          theme_suggestion: "Theme Suggestion",
+          text_color: "Text Color",
+          upload_an_image_to_get_started: "Upload an image to get started",
+          save_version: "Save Version",
+          save: "Save",
+          download: "Download",
+          edit_text: "Edit Text",
+          text_content: "Text Content",
+          detele_text: "Detele Text",
+          template: "Template",
+          select_template: "Select Template",
         },
       },
       vi: {
@@ -34,15 +45,25 @@ i18n
           export: "Xuất ảnh",
           export_image: "Xuất hình ảnh",
           reset: "Đặt lại",
-          choose_image: "Chọn hình ảnh (JPG/PNG)",
+          choose_image: "Chọn hình ảnh",
           choose_color: "Chọn màu",
           color_code: "Mã màu",
-
+          theme_suggestion: "Mẫu gợi ý",
+          text_color: "Màu chữ",
+          upload_an_image_to_get_started: "Tải lên một hình ảnh bất kỳ",
+          save_version: "Lưu phiên bản",
+          download: "Tải về",
+          save: "Lưu",
+          edit_text: "Chỉnh sửa văn bản",
+          text_content: "Nội dung văn bản",
+          detele_text: "Xóa nội văn bản",
+          template: "Mẫu",
+          select_template: "Lựa chọn mẫu",
         },
       },
     },
-    lng: "en", // Default language
-    fallbackLng: "en", // Fallback language
+    lng: "vi", // Default language
+    fallbackLng: "vi", // Fallback language
     interpolation: {
       escapeValue: false, // React already escapes values
     },

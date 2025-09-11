@@ -19,3 +19,7 @@ export interface TextElement {
 export interface ColorElement {
   color: string
 }
+
+export interface BackgroundElement {
+  background: string
+}

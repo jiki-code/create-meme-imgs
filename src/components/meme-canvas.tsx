@@ -1,16 +1,19 @@
 import { StageSize, TextElement } from "../app/types/meme";
 import { Upload } from "lucide-react";
-import { Layer, Stage, Image as KonvaImage } from "react-konva";
+import { Stage, Layer, Image, Rect, Text } from "react-konva";
+
 import DraggableText from "./dragable-text";
 import Konva from "konva";
-
+import { waterMark } from "../app/data/common";
+import { useTranslation } from "react-i18next";
 interface MemeCanvasProps {
   image: HTMLImageElement | null;
   textElements: TextElement[];
   stageSize: StageSize;
   onSelectText: (id: string) => void;
   stageRef: React.RefObject<Konva.Stage | null>;
-  color: string; // Add a color prop
+  color: string;
+  bgColor?: string;
 }
 
 export default function MemeCanvas({
@@ -19,9 +22,10 @@ export default function MemeCanvas({
   stageSize,
   onSelectText,
   stageRef,
-  color, // Destructure the color prop
+  color,
+  bgColor,
 }: MemeCanvasProps) {
-  console.log("Rendering MemeCanvas with image:", image, "and textElements:", textElements);
+  const { t } = useTranslation("common");
   if (!image) {
     return (
       <div
@@ -30,7 +34,7 @@ export default function MemeCanvas({
       >
         <div className="text-center text-gray-500">
           <Upload className="w-12 h-12 mx-auto mb-2" />
-          <p>Upload an image to get started</p>
+          <p> {t("upload_an_image_to_get_started")}</p>
         </div>
       </div>
     );
@@ -41,19 +45,50 @@ export default function MemeCanvas({
       className="border-2 border-dashed border-gray-300 rounded-lg overflow-hidden"
       style={{ width: stageSize.width, height: stageSize.height }}
     >
-      <Stage id="myImage" width={stageSize.width} height={stageSize.height} ref={stageRef}>
-        <Layer >
-          <KonvaImage
+      <Stage
+        id="myImage"
+        width={stageSize.width}
+        height={stageSize.height}
+        ref={stageRef}
+      >
+        <Layer>
+          {/* Background */}
+          <Rect
+            x={0}
+            y={0}
+            width={stageSize.width}
+            height={stageSize.height}
+            fill={bgColor}
+          />
+          {/* images */}
+          <Image
             image={image}
             width={stageSize.width}
             height={stageSize.height}
+            x={0}
+            y={0}
+            cornerRadius={10}
+            shadowBlur={10}
+            shadowOpacity={0.3}
           />
+
+          {/* Watermark */}
+          <Text
+            text={waterMark}
+            fontSize={15}
+            fill="red"
+            opacity={0.5}
+            x={stageSize.width - 120}
+            y={stageSize.height - 30}
+          />
+
+          {/* Text user add */}
           {textElements.map((textEl) => (
             <DraggableText
               key={textEl.id}
               textProps={{
                 ...textEl,
-                fill: color || textEl.fill || "white", // Use the color prop or fallback to textEl.fill
+                fill: color || textEl.fill || "white",
               }}
               onSelect={() => onSelectText(textEl.id)}
             />

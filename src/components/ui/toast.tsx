@@ -17,7 +17,7 @@ export default function CustomToast({ message, type = "info", closeToast }: Cust
       <span>{message}</span>
       {closeToast && (
         <button onClick={closeToast} className="ml-3">
-          <X size={16} />
+          <X size={18} />
         </button>
       )}
     </div>

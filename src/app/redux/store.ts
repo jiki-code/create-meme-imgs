@@ -1,13 +1,14 @@
 // store.ts
 import { configureStore } from "@reduxjs/toolkit";
-import imageReducer from "./imageSlice";
+import imageReducer from "./imagesMeme";
 import templateReducer from "./templateSelected";
-
+import loadingReducer from './loading';
 
 export const store = configureStore({
   reducer: {
     images: imageReducer,
     templates: templateReducer,
+    loading: loadingReducer
   },
 });
 

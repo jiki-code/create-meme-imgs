@@ -1,11 +1,26 @@
-export interface ExportControlsProps {
+export interface RightControlsProps {
     hasImage: boolean;
     onExport: () => void;
     onSaveDraft: () => void;
+    onChangeImage: (item: ImageItem) => void;
+
 
 }
 export interface ColorPickerProps {
   onColorChange?: (color: string) => void;
+}
+
+export interface TextElement {
+  id: string
+  text: string
+  x: number
+  y: number
+  fontSize: number
+  fill: string
+  stroke: string
+  strokeWidth: number
+  fontFamily: string
+  align: string
 }
 
 export interface EmojiPickerProps {
@@ -15,8 +30,9 @@ export interface EmojiPickerProps {
 export interface ImageItem {
   id: number;
   image: string;
-  text: string;
+  text: TextElement[];
   fullUrl: string;
+  isActive?: boolean
 }
 
 export interface CustomToastProps {
@@ -54,6 +70,12 @@ export interface UploadControlsProps {
 
 export interface ChildProps {
   onSelected: (item: any) => void;
+}
+
+export interface OpacityInputProps {
+  color: string; 
+  onChange: (colorWithOpacity: string) => void;
+  initialOpacity?: number;
 }
 
 
