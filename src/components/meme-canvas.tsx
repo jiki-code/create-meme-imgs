@@ -4,8 +4,9 @@ import { Upload, Image as ImageIcon } from "lucide-react";
 import { Stage, Layer, Image, Rect, Text } from "react-konva";
 import DraggableText from "./dragable-text";
 import Konva from "konva";
-import { waterMark } from "../app/data/common";
+import  {APP_IMG}  from "../assets/images";
 import { useTranslation } from "react-i18next";
+
 
 interface MemeCanvasProps {
   image: HTMLImageElement | null;
@@ -202,14 +203,13 @@ export default function MemeCanvas({
           />
 
           {/* Watermark */}
-          <Text
-            text={waterMark}
-            fontSize={15}
-            fill="red"
-            opacity={0.5}
-            x={stageSize.width - 120}
-            y={stageSize.height - 30}
-          />
+          {/* <Image
+            image={'../assets/images/watermark.png'}
+            width={20}
+            height={30}
+            x={0}
+            y={0}
+          /> */}
 
           {/* Text user add */}
           {textElements.map((textEl) => (

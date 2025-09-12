@@ -6,7 +6,7 @@ export interface Option<T extends string | number> {
 export interface SelectProps<T extends string | number> {
   options: Option<T>[]
   value: T
-  onChange: (value: T) => void
+  onChange: (value: T, value2?: any) => void
   placeholder?: string
   className?: string
 }

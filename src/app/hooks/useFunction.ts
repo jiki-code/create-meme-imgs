@@ -29,6 +29,9 @@ export const useFunction = () => {
   const [timesSave, setTimesSave] = useState(<number>0);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const stageRef = useRef<Konva.Stage>(null);
+  const [fontSize, setFontSize] = useState(<number>40);
+  const [fontFamily, setFontFamily] = useState(<string>'Impact, Arial Black, sans-serif');
+
 
   const dispatch = useDispatch();
 
@@ -80,11 +83,11 @@ export const useFunction = () => {
       text: "MEME TEXT",
       x: stageSize.width / 2,
       y: stageSize.height / 2,
-      fontSize: 40,
+      fontSize: fontSize,
       fill: "white",
       stroke: "white",
       strokeWidth: 2,
-      fontFamily: "Impact, Arial Black, sans-serif",
+      fontFamily: fontFamily,
       align: "center",
     };
     setTextElements((prev) => [...prev, newText]);
@@ -216,6 +219,20 @@ export const useFunction = () => {
     }
   };
 
+  const onFontSizeChange = useCallback((id: any, font: number) => {
+    setFontSize(font)
+    setTextElements((prev) =>
+      prev.map((el) => (el.id === id ? { ...el, fontSize: font } : el))
+    );
+  }, [])
+
+    const onFontFamilyChange = useCallback((id: any, font: string) => {
+    setFontFamily(font)
+    setTextElements((prev) =>
+      prev.map((el) => (el.id === id ? { ...el, fontFamily: font } : el))
+    );
+  }, [])
+
   return {
     image,
     textElements,
@@ -237,5 +254,9 @@ export const useFunction = () => {
     selecetTheme,
     onChangeImage,
     onImageDrop,
+    onFontSizeChange,
+    onFontFamilyChange,
+    fontSize,
+    fontFamily
   };
 };

@@ -21,6 +21,7 @@ function LanguageSwitcher() {
   return (
     <div className="w-full flex justify-end left-0">
       <SelectInput
+        className="w-36"
         options={languageList}
         value={i18n.language}
         onChange={changeLanguage}
@@ -43,8 +44,8 @@ export default function RootLayout({
       >
         <header className="p-1 header-bg border-b relative header-sticky">
           <LanguageSwitcher />
-          <h1 className="text-3xl lg:text-4xl font-bold text-center">{t("meme_tool")}</h1>
-          <p className="text-center text-lg lg:text-md my-2 text-gray-600">{t("description")}</p>
+          <h1 className="text-3xl lg:text-4xl font-bold text-center text-white">{t("meme_tool")}</h1>
+          <p className="text-center text-lg lg:text-md my-2 text-gray-200">{t("description")}</p>
         </header>
        <Providers>
           {children}

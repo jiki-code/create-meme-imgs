@@ -11,11 +11,11 @@ function SelectInput<T extends string | number>({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value as T)}
-      className={`border border-white rounded-xl px-3 py-2 focus:outline-none ${className}`}
+      className={`border bg-transparent h-10 rounded-md px-3 py-2 focus:outline-none ${className}`}
     >
       {options.map((opt) => (
         <option key={opt.value} value={opt.value}>
-          {opt.label}
+          <span>{opt.label}</span> 
         </option>
       ))}
     </select>

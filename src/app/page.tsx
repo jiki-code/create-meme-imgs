@@ -6,7 +6,7 @@ import TextControls from "@/components/text-controls";
 import TemplateSelector from "@/components/template-selector";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import UploadControls from "@/components/upload-controls";
-import UploadColorPicker from "@/components/upload-color-picker";
+import ColorControl from "@/components/color-control";
 import { useFunction } from "./hooks/useFunction";
 import * as React from "react";
 import { useSelector } from "react-redux";
@@ -33,7 +33,11 @@ const Home = () => {
     bgColor,
     selecetTheme,
     onChangeImage,
-    onImageDrop
+    onImageDrop,
+    onFontSizeChange,
+    onFontFamilyChange,
+    fontSize,
+    fontFamily
   } = useFunction();
   const isLoading = useSelector((state: RootState) => state.loading.isLoading);
 
@@ -46,16 +50,17 @@ const Home = () => {
           <div className="mx-auto">
             <div className="w-full flex lg:flex-row flex-col gap-2">
               {/* Controls Panel */}
-              <div className="lg:w-3/12 xl:w-2/12 w-full flex flex-col gap-3  max-h-[80vh] overflow-y-auto custom-scrollbar">
+              <div className="lg:w-4/12 xl:w-3/12 w-full flex flex-col gap-3  max-h-[80vh] overflow-y-auto custom-scrollbar">
                 <UploadControls
                   onImageUpload={handleImageUpload}
                   onReset={resetCanvas}
                 />
                 <TemplateSelector onImageUpload={selecetTheme} />
 
-                <UploadColorPicker
+                <ColorControl
                   onBackgroundChange={handleBackgroundChange}
                   onColorChange={handleColorChange}
+                 
                 />
                 <TextControls
                   hasImage={!!image}
@@ -64,10 +69,14 @@ const Home = () => {
                   textElements={textElements}
                   onUpdateText={updateText}
                   onDeleteText={deleteText}
+                  currentFontSize={fontSize}
+                  fontFamily={fontFamily}
+                  onFontSizeChange={onFontSizeChange}
+                  onFontFamilyChange={onFontFamilyChange}
                 />
               </div>
               {/* Canvas Area */}
-              <div className="lg:w-6/12 xl:w-8/12 w-full flex flex-col gap-2">
+              <div className="lg:w-4/12 xl:w-7/12 w-full flex flex-col gap-2">
                 <Card>
                   <CardHeader>
                     <CardTitle>Canvas</CardTitle>
@@ -86,7 +95,7 @@ const Home = () => {
                   </CardContent>
                 </Card>
               </div>
-              <div className="lg:w-3/12 xl:w-2/12 w-full flex flex-col   max-h-[80vh] overflow-y-auto gap-3 custom-scrollbar">
+              <div className="lg:w-4/12 xl:w-3/12 w-full flex flex-col   max-h-[80vh] overflow-y-auto gap-3 custom-scrollbar">
                 <SaveVersion
                   onChangeImage={onChangeImage}
                   hasImage={!!image}

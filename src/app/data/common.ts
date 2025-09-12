@@ -85,3 +85,24 @@ export const languageList: any = [
   { label: "English", value: "en" },
 ];
 
+export const fontList: any = [
+  { label: "Arial", value: "Arial, sans-serif" },
+  { label: "Times New Roman", value: "'Times New Roman', serif" },
+  { label: "Courier New", value: "'Courier New', monospace" },
+  { label: "Georgia", value: "Georgia, serif" },
+  { label: "Verdana", value: "Verdana, sans-serif" },
+  { label: "Impact", value: "Impact, sans-serif" },
+  { label: "Comic Sans", value: "'Comic Sans MS', cursive" },
+  { label: "Trebuchet MS", value: "'Trebuchet MS', sans-serif" },
+  { label: "Arial Black", value: "'Arial Black', sans-serif" },
+  { label: "Palatino", value: "Palatino, serif" },
+  { label: "Garamond", value: "Garamond, serif" },
+  { label: "Bookman", value: "Bookman, serif" },
+  { label: "Tahoma", value: "Tahoma, sans-serif" },
+  { label: "Franklin Gothic", value: "'Franklin Gothic Medium', sans-serif" },
+  { label: "Lucida Sans", value: "'Lucida Sans Unicode', sans-serif" },
+  { label: "Century Gothic", value: "'Century Gothic', sans-serif" },
+];
+
+
+

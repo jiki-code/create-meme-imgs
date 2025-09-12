@@ -25,16 +25,16 @@ export default function customEmojiPicker({ onEmojiClick }: EmojiPickerProps) {
   };
 
    return (
-    <div className="relative inline-block w-full" ref={pickerRef}>
+    <div className="relative inline-block w-10" ref={pickerRef}>
       <button
         onClick={() => setShowPicker((prev) => !prev)}
-        className="px-2 py-1 border rounded-lg shadow-sm bg-white hover:bg-gray-100 cursor-pointer"
+         className="h-12 cursor-pointer"
       >
-        😊
+        <span className="text-xl">😊</span>
       </button>
 
       {showPicker && (
-        <div className="absolute bottom-full mb-2 z-50 shadow-lg">
+        <div className="absolute bottom-full mb-2 w-full z-50 shadow-lg">
           <EmojiPicker onEmojiClick={handleEmojiClick}  />
         </div>
       )}

@@ -9,7 +9,7 @@ i18n
         common: {
           welcome: "Welcome",
           description: "Create meme from JPG, GIF or PNG (Maximum  5MB)",
-          meme_tool: "Meme Tool",
+          meme_tool: "MEME TOOL",
           upload_image: "Upload Image",
           text_controls: "Text Controls",
           add_text: "Add Text",
@@ -34,13 +34,18 @@ i18n
           drop_image_here: "Drop image here",
           or_drag_and_drop_image: "or drag and drop an image",
           drop_to_replace_image: "Drop to replace image",
+          emoji_add: "Add Emoji",
+          font_size: "Font size",
+          font_family: "Font Family",
+          delete_text: "Delete Text"
+
         },
       },
       vi: {
         common: {
           welcome: "Chào mừng",
           description: "Tạo meme từ JPG, GIF hoặc PNG (tối đa 5MB)",
-          meme_tool: "Công cụ tạo meme",
+          meme_tool: "CÔNG CỤ TẠO MEME",
           upload_image: "Tải lên hình ảnh",
           text_controls: "Điều khiển văn bản",
           add_text: "Thêm văn bản",
@@ -65,6 +70,10 @@ i18n
           drop_image_here: "Thả hình ảnh ở đây",
           or_drag_and_drop_image: "hoặc kéo và thả hình ảnh",
           drop_to_replace_image: "Thả để thay hình ảnh",
+          emoji_add: "Thêm Emoji",
+          font_size: "Kích thước",
+          font_family: "Kiểu chữ",
+          delete_text: "Xóa chữ"
         },
       },
     },

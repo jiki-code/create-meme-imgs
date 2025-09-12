@@ -8,9 +8,9 @@ import * as React from 'react'
 import clsx from "clsx";
 type UploadColorPickerProps = {
   onColorChange: (color: string) => void;
-  onBackgroundChange: (bg: string | ((prev: string) => string)) => void;
+  onBackgroundChange: (bg: string) => void;
 };
-export default function UploadColorPicker({
+export default function ColorControl({
   onColorChange,
   onBackgroundChange,
 }: UploadColorPickerProps) {

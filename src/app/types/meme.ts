@@ -23,3 +23,5 @@ export interface ColorElement {
 export interface BackgroundElement {
   background: string
 }
+
+export type ImageScaleType = "original" | "fit" | "cover" | "stretch";
