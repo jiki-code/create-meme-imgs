@@ -31,6 +31,9 @@ i18n
           detele_text: "Detele Text",
           template: "Template",
           select_template: "Select Template",
+          drop_image_here: "Drop image here",
+          or_drag_and_drop_image: "or drag and drop an image",
+          drop_to_replace_image: "Drop to replace image",
         },
       },
       vi: {
@@ -59,11 +62,14 @@ i18n
           detele_text: "Xóa nội văn bản",
           template: "Mẫu",
           select_template: "Lựa chọn mẫu",
+          drop_image_here: "Thả hình ảnh ở đây",
+          or_drag_and_drop_image: "hoặc kéo và thả hình ảnh",
+          drop_to_replace_image: "Thả để thay hình ảnh",
         },
       },
     },
-    lng: "vi", // Default language
-    fallbackLng: "vi", // Fallback language
+    lng: "en", // Default language
+    fallbackLng: "en", // Fallback language
     interpolation: {
       escapeValue: false, // React already escapes values
     },

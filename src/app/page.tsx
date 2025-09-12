@@ -33,6 +33,7 @@ const Home = () => {
     bgColor,
     selecetTheme,
     onChangeImage,
+    onImageDrop
   } = useFunction();
   const isLoading = useSelector((state: RootState) => state.loading.isLoading);
 
@@ -80,6 +81,7 @@ const Home = () => {
                       textElements={textElements}
                       onSelectText={setSelectedId}
                       bgColor={bgColor}
+                      onImageDrop={onImageDrop}
                     />
                   </CardContent>
                 </Card>

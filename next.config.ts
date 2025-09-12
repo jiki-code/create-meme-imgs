@@ -6,9 +6,6 @@ module.exports = {
 };
 const nextConfig: NextConfig = {
   i18n,
-  images: {
-    domains: ["i.imgflip.com"],
-  },
 };
 
 export default nextConfig;

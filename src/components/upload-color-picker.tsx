@@ -4,6 +4,8 @@ import { Palette } from "lucide-react";
 import ColorPicker from "./ui/color-picker";
 import { useTranslation } from "react-i18next";
 import { colorBackground  } from "../app/data/common";
+import * as React from 'react'
+import clsx from "clsx";
 type UploadColorPickerProps = {
   onColorChange: (color: string) => void;
   onBackgroundChange: (bg: string | ((prev: string) => string)) => void;
@@ -13,6 +15,7 @@ export default function UploadColorPicker({
   onBackgroundChange,
 }: UploadColorPickerProps) {
   const { t } = useTranslation("common");
+  const [backgroundColor, setBackgroundColor] = React.useState<string>('')
   // Pass color change to parent if needed
   const handleColorChange = (newColor: string) => {
     onColorChange(newColor);
@@ -40,9 +43,12 @@ export default function UploadColorPicker({
                 {colorBackground.map((color) => (
                   <button
                     key={color}
-                    className="w-6 h-6 rounded-full ring-offset-2 ring-gray-400 cursor-pointer"
-                    style={{ backgroundColor: color }}
-                    onClick={() => onBackgroundChange(color)}
+                     className={clsx(
+                                    "w-6 h-6 rounded-full ring-offset-2 ring-gray-400 cursor-pointer",
+                                    color === backgroundColor && "border-2 opacity-50"
+                                  )}
+                    style={{ backgroundColor: color,  }}
+                    onClick={() => onBackgroundChange(color,setBackgroundColor(color))}
                   />
                 ))}
               </div>

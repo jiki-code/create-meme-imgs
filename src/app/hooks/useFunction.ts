@@ -1,6 +1,9 @@
 "use client";
-
-import { ColorElement, StageSize, TextElement, BackgroundElement } from "../types/meme";
+import {
+  ColorElement,
+  StageSize,
+  TextElement,
+} from "../types/meme";
 import {
   calculateStageSize,
   loadImageFromFile,
@@ -10,12 +13,9 @@ import {
 import Konva from "konva";
 import { useCallback, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { useDispatch } from 'react-redux';
-import { showLoading, hideLoading } from '../redux/loading';
-import {
-  addImage,
-  clearImages,
-} from "@/app/redux/imagesMeme";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/loading";
+import { addImage, clearImages } from "@/app/redux/imagesMeme";
 export const useFunction = () => {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [fileNotEdit, setFileNotEdit] = useState<string | null>("");
@@ -45,7 +45,7 @@ export const useFunction = () => {
         text: textElements,
         image: fileNotEdit,
         fullUrl: imageData,
-        isActive: false
+        isActive: false,
       })
     );
   };
@@ -56,7 +56,7 @@ export const useFunction = () => {
       if (!file) return;
 
       try {
-        dispatch(showLoading())
+        dispatch(showLoading());
         const img = await loadImageFromFile(file);
         const src = await getImageSrcFromFile(file);
         const newStageSize = calculateStageSize(img);
@@ -65,11 +65,10 @@ export const useFunction = () => {
         setTextElements([]);
         setFileNotEdit(src);
         toast.success("Added image successful!");
-          dispatch(hideLoading())
-
+        dispatch(hideLoading());
       } catch (error) {
         console.error("Error loading image:", error);
-          dispatch(hideLoading())
+        dispatch(hideLoading());
       }
     },
     []
@@ -109,9 +108,7 @@ export const useFunction = () => {
     setSelectedId(null);
     setStageSize({ width: 750, height: 625 });
     dispatch(clearImages());
-    setTimesSave(0)
-    toast.success("Reset successful!");
-
+    setTimesSave(0);
   }, []);
 
   const exportImage = useCallback(async () => {
@@ -132,11 +129,11 @@ export const useFunction = () => {
   }, []);
 
   const handleColorChange = useCallback((color: string) => {
-    setColor({color} );
+    setColor({ color });
   }, []);
 
   const handleBackgroundChange = useCallback((bg: string) => {
-    setBgColor( bg );
+    setBgColor(bg);
   }, []);
 
   const saveDraft = useCallback(() => {
@@ -147,16 +144,16 @@ export const useFunction = () => {
       toast.warning("Maximum of 3 saves reached!");
       return;
     }
-    dispatch(showLoading())
+    dispatch(showLoading());
     setTimesSave(timesSave + 1);
     handleAddImage();
     toast.success("Saved successful!");
-    dispatch(hideLoading())
+    dispatch(hideLoading());
   }, [image, timesSave]);
 
   const selecetTheme = async (event: any) => {
     if (!event) return;
-     dispatch(showLoading())
+    dispatch(showLoading());
 
     try {
       const base64 = await urlToBase64(event.url);
@@ -169,14 +166,13 @@ export const useFunction = () => {
         setFileNotEdit(event.url);
         setTextElements([]);
         dispatch(clearImages());
-        setTimesSave(0)
+        setTimesSave(0);
         toast.success("Added image successful!");
-
       }, 100);
-      dispatch(hideLoading())
+      dispatch(hideLoading());
     } catch (error) {
       console.error("Error loading image:", error);
-        dispatch(hideLoading())
+      dispatch(hideLoading());
     }
   };
 
@@ -190,7 +186,7 @@ export const useFunction = () => {
 
   const onChangeImage = async (event: any) => {
     if (!event) return;
-      dispatch(showLoading())
+    dispatch(showLoading());
 
     try {
       const base64 = await urlToBase64(event.fullUrl);
@@ -200,14 +196,25 @@ export const useFunction = () => {
         const newStageSize = calculateStageSize(img);
         setStageSize(newStageSize);
         setImage(img);
-         setTextElements(event.text);
+        setTextElements(event.text);
       }, 100);
-       dispatch(hideLoading())
+      dispatch(hideLoading());
     } catch (error) {
-       dispatch(hideLoading())
+      dispatch(hideLoading());
     }
   };
- 
+
+  const onImageDrop = async (evt: any) => {
+    if (!evt) return;
+    try {
+      dispatch(showLoading());
+      setImage(evt);
+      toast.success("Added image successful!");
+      dispatch(hideLoading());
+    } catch (error) {
+      dispatch(hideLoading());
+    }
+  };
 
   return {
     image,
@@ -228,6 +235,7 @@ export const useFunction = () => {
     bgColor,
     saveDraft,
     selecetTheme,
-    onChangeImage
+    onChangeImage,
+    onImageDrop,
   };
 };
