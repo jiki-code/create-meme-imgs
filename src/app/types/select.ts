@@ -8,5 +8,5 @@ export interface SelectProps<T extends string | number> {
   value: T
   onChange: (value: T, value2?: any) => void
   placeholder?: string
-  className?: string
+  className?: string,
 }

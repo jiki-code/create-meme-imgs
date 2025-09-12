@@ -189,7 +189,6 @@ export const useFunction = () => {
 
   const onChangeImage = async (event: any) => {
     if (!event) return;
-    dispatch(showLoading());
 
     try {
       const base64 = await urlToBase64(event.fullUrl);
@@ -201,9 +200,7 @@ export const useFunction = () => {
         setImage(img);
         setTextElements(event.text);
       }, 100);
-      dispatch(hideLoading());
     } catch (error) {
-      dispatch(hideLoading());
     }
   };
 

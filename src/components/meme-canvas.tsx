@@ -1,13 +1,12 @@
 import { useState, useRef, useCallback } from "react";
 import { StageSize, TextElement } from "../app/types/meme";
 import { Upload, Image as ImageIcon } from "lucide-react";
-import { Stage, Layer, Image, Rect, Text } from "react-konva";
+import { Stage, Layer, Image, Rect, Text as KonvaImage } from "react-konva";
 import DraggableText from "./dragable-text";
 import Konva from "konva";
-import  {APP_IMG}  from "../assets/images";
+import  watermarkSrc  from "../assets/images/watermarks.png";
 import { useTranslation } from "react-i18next";
-
-
+import {Watermark} from "./ui/watermark"
 interface MemeCanvasProps {
   image: HTMLImageElement | null;
   textElements: TextElement[];
@@ -42,6 +41,7 @@ export default function MemeCanvas({
       img.src = src;
     });
   };
+
 
   const handleDrop = useCallback(
     async (e: React.DragEvent) => {
@@ -201,15 +201,12 @@ export default function MemeCanvas({
             shadowBlur={10}
             shadowOpacity={0.3}
           />
+           
 
           {/* Watermark */}
-          {/* <Image
-            image={'../assets/images/watermark.png'}
-            width={20}
-            height={30}
-            x={0}
-            y={0}
-          /> */}
+         {watermarkSrc && (
+          <Watermark src={watermarkSrc.src || watermarkSrc} />
+        )}
 
           {/* Text user add */}
           {textElements.map((textEl) => (
