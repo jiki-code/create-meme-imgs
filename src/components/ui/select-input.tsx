@@ -15,7 +15,7 @@ function SelectInput<T extends string | number>({
     >
       {options.map((opt) => (
         <option key={opt.value} value={opt.value}>
-          <span>{opt.label}</span> 
+          {opt.label} 
         </option>
       ))}
     </select>

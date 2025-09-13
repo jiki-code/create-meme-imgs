@@ -78,6 +78,15 @@ export interface OpacityInputProps {
   initialOpacity?: number;
 }
 
+export interface ImageState {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  scale: number;
+  rotation: number;
+}
+
 
 
 

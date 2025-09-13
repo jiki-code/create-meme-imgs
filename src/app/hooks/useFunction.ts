@@ -1,9 +1,5 @@
 "use client";
-import {
-  ColorElement,
-  StageSize,
-  TextElement,
-} from "../types/meme";
+import { ColorElement, StageSize, TextElement } from "../types/meme";
 import {
   calculateStageSize,
   loadImageFromFile,
@@ -30,8 +26,9 @@ export const useFunction = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const stageRef = useRef<Konva.Stage>(null);
   const [fontSize, setFontSize] = useState(<number>40);
-  const [fontFamily, setFontFamily] = useState(<string>'Impact, Arial Black, sans-serif');
-
+  const [fontFamily, setFontFamily] = useState(
+    <string>"Impact, Arial Black, sans-serif"
+  );
 
   const dispatch = useDispatch();
 
@@ -200,8 +197,7 @@ export const useFunction = () => {
         setImage(img);
         setTextElements(event.text);
       }, 100);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const onImageDrop = async (evt: any) => {
@@ -217,18 +213,18 @@ export const useFunction = () => {
   };
 
   const onFontSizeChange = useCallback((id: any, font: number) => {
-    setFontSize(font)
+    setFontSize(font);
     setTextElements((prev) =>
       prev.map((el) => (el.id === id ? { ...el, fontSize: font } : el))
     );
-  }, [])
+  }, []);
 
-    const onFontFamilyChange = useCallback((id: any, font: string) => {
-    setFontFamily(font)
+  const onFontFamilyChange = useCallback((id: any, font: string) => {
+    setFontFamily(font);
     setTextElements((prev) =>
       prev.map((el) => (el.id === id ? { ...el, fontFamily: font } : el))
     );
-  }, [])
+  }, []);
 
   return {
     image,
@@ -254,6 +250,6 @@ export const useFunction = () => {
     onFontSizeChange,
     onFontFamilyChange,
     fontSize,
-    fontFamily
+    fontFamily,
   };
 };

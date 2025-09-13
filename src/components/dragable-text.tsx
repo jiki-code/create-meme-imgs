@@ -13,6 +13,7 @@ export default function DraggableText({
     <>
       <Text
         draggable
+        className="cursor-move"
         {...textProps}
         onClick={onSelect}
         offsetX={textProps.text.length * textProps.fontSize * 0.3}

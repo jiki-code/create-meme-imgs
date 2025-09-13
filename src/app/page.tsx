@@ -46,7 +46,7 @@ const Home = () => {
       {isLoading ? (
         <Loading message="Loading..." />
       ) : (
-        <div className="bg-gray-50 p-3 overflow-hidden">
+        <div className="p-3 body-content overflow-hidden">
           <div className="mx-auto">
             <div className="w-full flex lg:flex-row flex-col gap-2">
               {/* Controls Panel */}

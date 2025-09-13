@@ -1,12 +1,13 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { StageSize, TextElement } from "../app/types/meme";
-import { Upload, Image as ImageIcon } from "lucide-react";
-import { Stage, Layer, Image, Rect, Text as KonvaImage } from "react-konva";
+import { Upload, ImageIcon, Undo2, ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
+import { Stage, Layer, Image, Rect, Transformer } from "react-konva";
 import DraggableText from "./dragable-text";
 import Konva from "konva";
-import  watermarkSrc  from "../assets/images/watermarks.png";
 import { useTranslation } from "react-i18next";
-import {Watermark} from "./ui/watermark"
+import watermarkSrc from "../assets/images/laoho.png";
+import { Watermark } from "./ui/watermark";
+import {ImageState} from "../app/types/general"
 interface MemeCanvasProps {
   image: HTMLImageElement | null;
   textElements: TextElement[];
@@ -25,12 +26,54 @@ export default function MemeCanvas({
   onSelectText,
   stageRef,
   color,
-  bgColor,
+  bgColor = "#ffffff",
   onImageDrop,
 }: MemeCanvasProps) {
   const { t } = useTranslation("common");
   const [isDraggingOver, setIsDraggingOver] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<Konva.Image>(null);
+  const trRef = useRef<Konva.Transformer>(null);
+  const [showWatermark, setShowWatermark] = useState<Boolean>(true);
+
+  const [imageState, setImageState] = useState<ImageState>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+    scale: 1,
+    rotation: 0,
+  });
+
+  useEffect(() => {
+    if (image && stageSize.width > 0 && stageSize.height > 0) {
+      const ratio = Math.min(
+        stageSize.width / image.width,
+        stageSize.height / image.height
+      );
+      
+      setImageState({
+        x: (stageSize.width - image.width * ratio) / 2,
+        y: (stageSize.height - image.height * ratio) / 2,
+        width: image.width * ratio,
+        height: image.height * ratio,
+        scale: 1,
+        rotation: 0,
+      });
+    }
+  }, [image, stageSize]);
+
+  // Update transformer when selection changes
+  useEffect(() => {
+    if (selectedId === "image" && trRef.current && imageRef.current) {
+      trRef.current.nodes([imageRef.current]);
+      trRef.current.getLayer()?.batchDraw();
+    } else if (trRef.current) {
+      trRef.current.nodes([]);
+      trRef.current.getLayer()?.batchDraw();
+    }
+  }, [selectedId]);
 
   // Properly typed image creation function
   const createImageElement = (src: string): Promise<HTMLImageElement> => {
@@ -42,11 +85,11 @@ export default function MemeCanvas({
     });
   };
 
-
   const handleDrop = useCallback(
     async (e: React.DragEvent) => {
       e.preventDefault();
       setIsDraggingOver(false);
+      setSelectedId(null);
       
       const files = e.dataTransfer.files;
       if (files.length > 0) {
@@ -116,6 +159,65 @@ export default function MemeCanvas({
     }
   }, []);
 
+  const handleZoomIn = () => {
+    setImageState(prev => ({
+      ...prev,
+      scale: prev.scale * 1.2
+    }));
+  };
+
+  const handleZoomOut = () => {
+    setImageState(prev => ({
+      ...prev,
+      scale: Math.max(0.1, prev.scale / 1.2)
+    }));
+  };
+
+  const handleResetImage = () => {
+    if (image && stageSize.width > 0 && stageSize.height > 0) {
+      const ratio = Math.min(
+        stageSize.width / image.width,
+        stageSize.height / image.height
+      );
+      
+      setImageState({
+        x: (stageSize.width - image.width * ratio) / 2,
+        y: (stageSize.height - image.height * ratio) / 2,
+        width: image.width * ratio,
+        height: image.height * ratio,
+        scale: 1,
+        rotation: 0,
+      });
+    }
+    setSelectedId(null);
+  };
+
+  const handleImageClick = () => {
+    setSelectedId(selectedId === "image" ? null : "image");
+  };
+
+  const handleImageTransform = () => {
+    if (imageRef.current) {
+      const node = imageRef.current;
+      const scaleX = node.scaleX();
+      const scaleY = node.scaleY();
+      
+      setImageState(prev => ({
+        ...prev,
+        x: node.x(),
+        y: node.y(),
+        width: Math.max(5, node.width() * scaleX),
+        height: Math.max(5, node.height() * scaleY),
+        scale: scaleX,
+        rotation: node.rotation(),
+      }));
+      
+      // Reset scale for next transformation
+      node.scaleX(1);
+      node.scaleY(1);
+    }
+  };
+
   if (!image) {
     return (
       <div
@@ -162,6 +264,34 @@ export default function MemeCanvas({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
     >
+      {/* Background color picker button */}
+      <div className="absolute top-0 right-1 z-10 flex flex-col gap-2">
+        {/* Image controls */}
+        <div className="flex flex-col gap-2 bg-[#f5f5f5] p-2 rounded-lg shadow-md">
+          <button
+            onClick={handleZoomIn}
+            className="p-2 rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
+            title={t("zoom_in")}
+          >
+            <ZoomIn className="w-5 h-5" />
+          </button>
+          <button
+            onClick={handleZoomOut}
+            className="p-2 rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
+            title={t("zoom_out")}
+          >
+            <ZoomOut className="w-5 h-5" />
+          </button>
+          <button
+            onClick={handleResetImage}
+            className="p-2 rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
+            title={t("back")}
+          >
+            <Undo2 className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+      
       {/* Drop overlay when dragging over existing image */}
       <div
         className={`absolute inset-0 bg-blue-100 bg-opacity-70 flex items-center justify-center transition-opacity duration-200 pointer-events-none ${
@@ -190,23 +320,51 @@ export default function MemeCanvas({
             fill={bgColor}
           />
           
-          {/* Image */}
-          <Image
-            image={image}
-            width={stageSize.width}
-            height={stageSize.height}
-            x={0}
-            y={0}
-            cornerRadius={10}
-            shadowBlur={10}
-            shadowOpacity={0.3}
-          />
-           
+          {/* Image with transformation capabilities */}
+          {image && (
+            <>
+              <Image
+                ref={imageRef}
+                image={image}
+                x={imageState.x}
+                y={imageState.y}
+                width={imageState.width}
+                height={imageState.height}
+                scaleX={imageState.scale}
+                scaleY={imageState.scale}
+                rotation={imageState.rotation}
+                cornerRadius={10}
+                shadowBlur={10}
+                shadowOpacity={0.3}
+                onClick={handleImageClick}
+                onTap={handleImageClick}
+                onTransformEnd={handleImageTransform}
+                onDragEnd={handleImageTransform}
+                draggable={selectedId === "image"}
+              />
+              
+              {selectedId === "image" && (
+                <Transformer
+                  ref={trRef}
+                  boundBoxFunc={(oldBox, newBox) => {
+                    // Limit resize to prevent negative values
+                    if (newBox.width < 5 || newBox.height < 5) {
+                      return oldBox;
+                    }
+                    return newBox;
+                  }}
+                />
+              )}
+            </>
+          )}
 
-          {/* Watermark */}
-         {watermarkSrc && (
-          <Watermark src={watermarkSrc.src || watermarkSrc} />
-        )}
+          {/* Watermark - using generated image instead of external file */}
+          {showWatermark && (
+            <Watermark
+              src={watermarkSrc.src}
+              stageSize={stageSize}
+            />
+          )}
 
           {/* Text user add */}
           {textElements.map((textEl) => (
@@ -216,7 +374,11 @@ export default function MemeCanvas({
                 ...textEl,
                 fill: color || textEl.fill || "white",
               }}
-              onSelect={() => onSelectText(textEl.id)}
+              onSelect={() => {
+                onSelectText(textEl.id);
+                setSelectedId(null);
+              }}
+              isSelected={selectedId === textEl.id}
             />
           ))}
         </Layer>

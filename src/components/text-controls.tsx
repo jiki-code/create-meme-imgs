@@ -39,21 +39,21 @@ export default function TextControls({
     ? textElements.find((el) => el.id === selectedId)
     : null;
   const { t } = useTranslation("common");
-  // Xử lý tăng font size
+  // increase font size
   const increaseFontSize = () => {
     if (selectedId && onFontSizeChange) {
       onFontSizeChange(selectedId, Math.min(currentFontSize + 2, 100));
     }
   };
 
-  // Xử lý giảm font size
+  // decrease font size
   const decreaseFontSize = () => {
     if (selectedId && onFontSizeChange) {
       onFontSizeChange(selectedId, Math.max(currentFontSize - 2, 20));
     }
   };
 
-  // Xử lý thay đổi font family
+  // handle font family
   const handleFontFamilyChange = (fontFamily: string) => {
     if (selectedId) {
       onFontFamilyChange(selectedId, fontFamily);

@@ -37,7 +37,7 @@ export default function ColorControl({
                 onColorChange={handleColorChange}
                 title={t('text_color')}
               />
-              {/* choose background */}
+              {/* select background */}
 
               <div className="flex pt-2 flex-nowrap gap-1 w-full">
                 {colorBackground.map((color) => (

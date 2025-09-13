@@ -15,7 +15,7 @@ export default function SaveVersion ({
   onChangeImage
 }: RightControlsProps) {
   const images = useSelector((state: RootState) => state.images.list);
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common"); // translte
   return (
     <>
     {images && images.length > 0 && (

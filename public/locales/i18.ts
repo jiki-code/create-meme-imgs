@@ -37,7 +37,10 @@ i18n
           emoji_add: "Add Emoji",
           font_size: "Font size",
           font_family: "Font Family",
-          delete_text: "Delete Text"
+          delete_text: "Delete Text",
+          zoom_in: "Zoom In",
+          zoom_out: "Zoom Out",
+          back: "Back"
 
         },
       },
@@ -73,7 +76,12 @@ i18n
           emoji_add: "Thêm Emoji",
           font_size: "Kích thước",
           font_family: "Kiểu chữ",
-          delete_text: "Xóa chữ"
+          delete_text: "Xóa chữ",
+          zoom_in: "Phóng to",
+          zoom_out: "Thu nhỏ",
+          back: "Trở lại"
+
+
         },
       },
     },
