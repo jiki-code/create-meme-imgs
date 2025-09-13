@@ -51,7 +51,7 @@ const Home = () => {
           <div className="mx-auto">
             <div className="w-full flex lg:flex-row flex-col gap-2">
               {/* Controls Panel */}
-              <div className="lg:w-4/12 xl:w-3/12 w-full flex flex-col gap-3  min-h-[80vh] overflow-hidden lg:overflow-scroll  custom-scrollbar">
+              <div className="lg:w-4/12 xl:w-3/12 w-full flex flex-col gap-3  max-h-[80vh] overflow-hidden lg:overflow-auto  custom-scrollbar">
                 <UploadControls
                   onImageUpload={handleImageUpload}
                   onReset={resetCanvas}
@@ -97,7 +97,7 @@ const Home = () => {
                   </CardContent>
                 </Card>
               </div>
-              <div className="lg:w-4/12 xl:w-3/12 w-full flex flex-col  min-h-[80vh] overflow-hidden lg:overflow-scroll gap-3 custom-scrollbar">
+              <div className="lg:w-4/12 xl:w-3/12 w-full flex flex-col  max-h-[80vh] overflow-hidden lg:overflow-auto gap-3 custom-scrollbar">
                 <SaveVersion
                   onChangeImage={onChangeImage}
                   hasImage={!!image}
