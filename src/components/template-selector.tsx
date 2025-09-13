@@ -7,7 +7,7 @@ import { ThemeSelector } from "./ui/theme-select";
 import {UploadControlsProps} from "../app/types/general"
 import { useTranslation } from "react-i18next";
 export default function ThemeSelected({ onImageUpload }: UploadControlsProps) {
-  const handleSelectTemplate = (template: any) => {
+  const handleSelectTemplate = (template: React.ChangeEvent<HTMLInputElement>) => {
     onImageUpload(template);
   };
     const { t } = useTranslation("common"); 

@@ -1,10 +1,7 @@
-"use client";
-
 import * as React from "react"
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
-import {EmojiPickerProps} from "@/app/types/general";
 
-export default function customEmojiPicker({ onEmojiClick }: EmojiPickerProps) {
+const CustomEmojiPicker: React.FC<{ onEmojiClick: (emoji: string) => void }> = ({ onEmojiClick }) => {
   const [showPicker, setShowPicker] = React.useState<boolean>(false);
   const pickerRef = React.useRef<HTMLDivElement>(null);
 
@@ -41,3 +38,5 @@ export default function customEmojiPicker({ onEmojiClick }: EmojiPickerProps) {
     </div>
   );
 }
+
+export {CustomEmojiPicker}

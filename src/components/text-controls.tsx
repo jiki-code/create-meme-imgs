@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { TextElement } from "../app/types/meme";
-import EmojiPicker from "./ui/emoji";
+import {CustomEmojiPicker}  from "./ui/emoji";
 import { useTranslation } from "react-i18next";
 import {fontList} from "../app/data/common"
 import {SelectInput} from "../components/ui/select-input"
@@ -88,7 +88,7 @@ export default function TextControls({
               
                 {/* Emoji Picker và Input */}
                 <div className="w-full flex justify-start items-center gap-2">
-                  <EmojiPicker
+                    <CustomEmojiPicker
                     onEmojiClick={(emoji: string) =>
                       onUpdateText(selectedId, selectedText.text + emoji)
                     }

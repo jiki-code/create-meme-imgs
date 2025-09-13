@@ -46,8 +46,8 @@ export default function MemeCanvas({
     rotation: 0,
   });
 
-  setShowWatermark(true)
   useEffect(() => {
+    setShowWatermark(true)
     if (image && stageSize.width > 0 && stageSize.height > 0) {
       const ratio = Math.min(
         stageSize.width / image.width,

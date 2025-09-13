@@ -24,7 +24,7 @@ export interface TextElement {
 }
 
 export interface EmojiPickerProps {
-  onEmojiClick?: (emoji: string) => void;
+  onEmojiClick: (emoji: string) => void;
 }
 
 export interface ImageItem {
