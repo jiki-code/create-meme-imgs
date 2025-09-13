@@ -8,7 +8,7 @@ import * as React from 'react'
 import clsx from "clsx";
 type UploadColorPickerProps = {
   onColorChange: (color: string) => void;
-  onBackgroundChange: (bg: string) => void;
+  onBackgroundChange: (bg: string, bg2?: void) => void;
 };
 export default function ColorControl({
   onColorChange,
@@ -50,10 +50,11 @@ export default function ColorControl({
                     style={{ backgroundColor: color,  }}
                     onClick={() => onBackgroundChange(color,setBackgroundColor(color))}
                   />
+                   
                 ))}
               </div>
               {/* input opacity */}
-              <div className="pt-2">
+              {/* <div className="pt-2">
               <input
                 type="range"
                 min="0"
@@ -62,7 +63,7 @@ export default function ColorControl({
                 defaultValue="1"
                 onChange={(e) => {
                   const opacity = parseFloat(e.target.value);
-                  onBackgroundChange((prev: any) => {
+                 onBackgroundChange((prev: any) => {
                     if (prev.includes('rgba')) {
                       return prev.replace(/[\d\.]+\)$/g, `${opacity})`);
                     }
@@ -76,7 +77,7 @@ export default function ColorControl({
                 }}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
               />
-            </div>
+            </div> */}
             </div>
           </div>
         </CardContent>

@@ -4,11 +4,12 @@ import { LayoutTemplate } from "lucide-react";
 import { Card, CardHeader, CardTitle } from "./ui/card";
 
 import { ThemeSelector } from "./ui/theme-select";
-import {UploadControlsProps} from "../app/types/general"
+import {ChangeThemeProps, ThemeSelect} from "../app/types/general"
 import { useTranslation } from "react-i18next";
-export default function ThemeSelected({ onImageUpload }: UploadControlsProps) {
-  const handleSelectTemplate = (template: React.ChangeEvent<HTMLInputElement>) => {
-    onImageUpload(template);
+export default function ThemeSelected({ onImageUpload }: ChangeThemeProps) {
+  const handleSelectTemplate = (template: ThemeSelect) => {
+     console.log("🚀 ~ handleSelectTemplate ~ template:", template)
+     onImageUpload(template)
   };
     const { t } = useTranslation("common"); 
   return (

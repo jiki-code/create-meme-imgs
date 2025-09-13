@@ -7,10 +7,10 @@ import { useDispatch } from "react-redux";
 import clsx from "clsx";
 import { setTemplates } from "@/app/redux/templateSelected";
 import { memes } from "../../app/data/common";
-import { ChildProps, ThemeSelect } from "@/app/types/general";
+import { ThemeSelectorProps, ThemeSelect } from "@/app/types/general";
 import { useTranslation } from "react-i18next";
 
-const ThemeSelector = ({ onSelected }: ChildProps) => {
+const ThemeSelector = ({ onSelected }: ThemeSelectorProps) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const dispatch = useDispatch();
   const { t } = useTranslation("common");
@@ -53,12 +53,10 @@ const ThemeSelector = ({ onSelected }: ChildProps) => {
                     item?.id === meme.id &&
                       "border-2 rounded-lg border-gray-500 opacity-60"
                   )}
-                  onDoubleClick={() => {
-                    meme
-                    if (meme) {
-                      setOpen(false);
-                    }
-                  }}
+                 onDoubleClick={() => {
+                  onSelected(meme); 
+                  setOpen(false);
+                }}
                   onClick={() => setItem(meme)}
                 >
                   <img

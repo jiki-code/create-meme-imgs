@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/loading";
 import { addImage, clearImages } from "@/app/redux/imagesMeme";
+import {ImageItem, ThemeSelect} from '../types/general'
 export const useFunction = () => {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [fileNotEdit, setFileNotEdit] = useState<string | null>("");
@@ -29,7 +30,6 @@ export const useFunction = () => {
   const [fontFamily, setFontFamily] = useState(
     <string>"Impact, Arial Black, sans-serif"
   );
-
   const dispatch = useDispatch();
 
   const handleAddImage = () => {
@@ -151,7 +151,7 @@ export const useFunction = () => {
     dispatch(hideLoading());
   }, [image, timesSave]);
 
-  const selecetTheme = async (event: any) => {
+  const selectTheme = async (event: ThemeSelect) => {
     if (!event) return;
     dispatch(showLoading());
 
@@ -184,7 +184,7 @@ export const useFunction = () => {
     return Number(result);
   };
 
-  const onChangeImage = async (event: any) => {
+  const onChangeImage = async (event: ImageItem) => {
     if (!event) return;
 
     try {
@@ -200,11 +200,11 @@ export const useFunction = () => {
     } catch (error) {}
   };
 
-  const onImageDrop = async (evt: any) => {
-    if (!evt) return;
+  const onImageDrop = async (image: HTMLImageElement) => {
+    if (!image) return;
     try {
       dispatch(showLoading());
-      setImage(evt);
+      setImage(image);
       toast.success("Added image successful!");
       dispatch(hideLoading());
     } catch (error) {
@@ -212,14 +212,14 @@ export const useFunction = () => {
     }
   };
 
-  const onFontSizeChange = useCallback((id: any, font: number) => {
+  const onFontSizeChange = useCallback((id: string, font: number) => {
     setFontSize(font);
     setTextElements((prev) =>
       prev.map((el) => (el.id === id ? { ...el, fontSize: font } : el))
     );
   }, []);
 
-  const onFontFamilyChange = useCallback((id: any, font: string) => {
+  const onFontFamilyChange = useCallback((id: string, font: string) => {
     setFontFamily(font);
     setTextElements((prev) =>
       prev.map((el) => (el.id === id ? { ...el, fontFamily: font } : el))
@@ -244,7 +244,7 @@ export const useFunction = () => {
     color,
     bgColor,
     saveDraft,
-    selecetTheme,
+    selectTheme,
     onChangeImage,
     onImageDrop,
     onFontSizeChange,

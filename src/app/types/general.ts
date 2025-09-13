@@ -65,11 +65,16 @@ export interface ThemeSelect {
 }
 
 export interface UploadControlsProps {
-  onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+export interface ChangeThemeProps {
+    onImageUpload: (event: ThemeSelect) => void;
+}
+
+
 export interface ChildProps {
-  onSelected: (item: string, item2?: void) => void;
+  onSelected: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface OpacityInputProps {
@@ -85,6 +90,10 @@ export interface ImageState {
   height: number;
   scale: number;
   rotation: number;
+}
+
+export interface ThemeSelectorProps {
+  onSelected: (item: ThemeSelect) => void;
 }
 
 

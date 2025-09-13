@@ -31,7 +31,7 @@ const Home = () => {
     saveDraft,
     color,
     bgColor,
-    selecetTheme,
+    selectTheme,
     onChangeImage,
     onImageDrop,
     onFontSizeChange,
@@ -55,7 +55,7 @@ const Home = () => {
                   onImageUpload={handleImageUpload}
                   onReset={resetCanvas}
                 />
-                <TemplateSelector onImageUpload={selecetTheme} />
+                <TemplateSelector onImageUpload={selectTheme} />
 
                 <ColorControl
                   onBackgroundChange={handleBackgroundChange}
