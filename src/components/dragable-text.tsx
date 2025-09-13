@@ -4,6 +4,7 @@ import { Text } from "react-konva";
 interface DraggableTextProps {
   textProps: TextElement;
   onSelect: () => void;
+  isSelected: boolean
 }
 export default function DraggableText({
   textProps,
