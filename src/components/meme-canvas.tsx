@@ -17,6 +17,7 @@ interface MemeCanvasProps {
   color: string;
   bgColor?: string;
   onImageDrop?: (image: HTMLImageElement) => void;
+  isDownload?: boolean
 }
 
 export default function MemeCanvas({
@@ -28,6 +29,7 @@ export default function MemeCanvas({
   color,
   bgColor = "#ffffff",
   onImageDrop,
+  isDownload
 }: MemeCanvasProps) {
   const { t } = useTranslation("common");
   const [isDraggingOver, setIsDraggingOver] = useState(false);
@@ -35,7 +37,6 @@ export default function MemeCanvas({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<Konva.Image>(null);
   const trRef = useRef<Konva.Transformer>(null);
-  const [showWatermark, setShowWatermark] = useState<boolean>(true);
 
   const [imageState, setImageState] = useState<ImageState>({
     x: 0,
@@ -47,7 +48,6 @@ export default function MemeCanvas({
   });
 
   useEffect(() => {
-    setShowWatermark(true)
     if (image && stageSize.width > 0 && stageSize.height > 0) {
       const ratio = Math.min(
         stageSize.width / image.width,
@@ -360,7 +360,7 @@ export default function MemeCanvas({
           )}
 
           {/* Watermark - using generated image instead of external file */}
-          {showWatermark && (
+          {isDownload && (
             <Watermark
               src={watermarkSrc.src}
               stageSize={stageSize}

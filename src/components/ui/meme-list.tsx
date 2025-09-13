@@ -42,7 +42,7 @@ const MemeList: React.FC<MemeListProps> = ({ memes, onSelected }) => {
     <div>
       <div className="flex lg:flex-col flex-row items-center gap-3">
         {memeList.map((meme) => (
-          <div key={meme.id} className="flex flex-col  items-center w-48 sm:w-[295px]">
+          <div key={meme.id} className="flex flex-col  items-center w-48 sm:w-[335px]">
             <img
               onDoubleClick={() => {
                 selectImages(meme);

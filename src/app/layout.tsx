@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-      className="overflow-hidden min-h-screen"
+      className="xl:overflow-hidden overflow-scroll min-h-screen"
       >
         <header className="p-1 header-bg border-b relative header-sticky">
           <LanguageSwitcher />

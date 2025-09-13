@@ -30,6 +30,7 @@ export const useFunction = () => {
   const [fontFamily, setFontFamily] = useState(
     <string>"Impact, Arial Black, sans-serif"
   );
+  const [isDown, setIsDown] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const handleAddImage = () => {
@@ -42,7 +43,7 @@ export const useFunction = () => {
     dispatch(
       addImage({
         id: randomDigits(12),
-        text: textElements,
+        text: [],
         image: fileNotEdit ?? "",
         fullUrl: imageData,
         isActive: false,
@@ -113,19 +114,20 @@ export const useFunction = () => {
 
   const exportImage = useCallback(async () => {
     if (!stageRef.current) return;
-
+    setIsDown(true)
     await new Promise((resolve) => setTimeout(resolve, 150));
     const uri = stageRef.current.toDataURL({
       pixelRatio: 2,
       mimeType: "image/png",
     });
     const link = document.createElement("a");
-    link.download = `meme_${Math.random() * 99}.png`;
+    link.download = `meme_${Math.random() * 999}.png`;
     link.href = uri;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     toast.success("Exported file successful!");
+    setTimeout(() => setIsDown(false), 500);
   }, []);
 
   const handleColorChange = useCallback((color: string) => {
@@ -251,5 +253,6 @@ export const useFunction = () => {
     onFontFamilyChange,
     fontSize,
     fontFamily,
+    isDown
   };
 };

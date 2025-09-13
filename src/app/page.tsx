@@ -37,7 +37,8 @@ const Home = () => {
     onFontSizeChange,
     onFontFamilyChange,
     fontSize,
-    fontFamily
+    fontFamily,
+    isDown
   } = useFunction();
   const isLoading = useSelector((state: RootState) => state.loading.isLoading);
 
@@ -46,11 +47,11 @@ const Home = () => {
       {isLoading ? (
         <Loading message="Loading..." />
       ) : (
-        <div className="p-3 body-content overflow-hidden">
+        <div className="p-3 body-content">
           <div className="mx-auto">
             <div className="w-full flex lg:flex-row flex-col gap-2">
               {/* Controls Panel */}
-              <div className="lg:w-4/12 xl:w-3/12 w-full flex flex-col gap-3  max-h-[80vh] overflow-y-auto custom-scrollbar">
+              <div className="lg:w-4/12 xl:w-3/12 w-full flex flex-col gap-3  min-h-[80vh] overflow-hidden lg:overflow-scroll  custom-scrollbar">
                 <UploadControls
                   onImageUpload={handleImageUpload}
                   onReset={resetCanvas}
@@ -91,16 +92,18 @@ const Home = () => {
                       onSelectText={setSelectedId}
                       bgColor={bgColor}
                       onImageDrop={onImageDrop}
+                      isDownload={isDown}
                     />
                   </CardContent>
                 </Card>
               </div>
-              <div className="lg:w-4/12 xl:w-3/12 w-full flex flex-col   max-h-[80vh] overflow-y-auto gap-3 custom-scrollbar">
+              <div className="lg:w-4/12 xl:w-3/12 w-full flex flex-col  min-h-[80vh] overflow-hidden lg:overflow-scroll gap-3 custom-scrollbar">
                 <SaveVersion
                   onChangeImage={onChangeImage}
                   hasImage={!!image}
                   onExport={exportImage}
                   onSaveDraft={saveDraft}
+                  
                 />
               </div>
             </div>
