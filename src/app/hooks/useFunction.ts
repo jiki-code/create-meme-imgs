@@ -43,7 +43,7 @@ export const useFunction = () => {
       addImage({
         id: randomDigits(12),
         text: textElements,
-        image: fileNotEdit,
+        image: fileNotEdit ?? "",
         fullUrl: imageData,
         isActive: false,
       })
