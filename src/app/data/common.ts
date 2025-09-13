@@ -136,6 +136,8 @@ export const fontList: Option<string>[] = [
   { label: "Franklin Gothic", value: "'Franklin Gothic Medium', sans-serif" },
   { label: "Lucida Sans", value: "'Lucida Sans Unicode', sans-serif" },
   { label: "Century Gothic", value: "'Century Gothic', sans-serif" },
+  { label: "Impact Arial Black", value: "'Impact, Arial Black, sans-serif" },
+
 ];
 
 

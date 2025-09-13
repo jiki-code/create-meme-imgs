@@ -104,7 +104,7 @@ export default function TextControls({
                 {/* Font family selector */}
                 <div className="space-y-2">
                   <Label>{t("font_family")}</Label>
-                   <SelectInput options={fontList} value={fontFamily} className="w-full" onChange={handleFontFamilyChange} />
+                   <SelectInput options={fontList} value={fontFamily ?? ""} className="w-full" onChange={handleFontFamilyChange} />
                 </div>
 
                 {/* Font size controls */}

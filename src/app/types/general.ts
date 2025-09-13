@@ -69,7 +69,7 @@ export interface UploadControlsProps {
 }
 
 export interface ChildProps {
-  onSelected: (item: any) => void;
+  onSelected: (item: string, item2?: void) => void;
 }
 
 export interface OpacityInputProps {

@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 const ThemeSelector = ({ onSelected }: ChildProps) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const dispatch = useDispatch();
-  const {t} = useTranslation('common');
+  const { t } = useTranslation("common");
   const [item, setItem] = React.useState<ThemeSelect>({
     id: "",
     title: "",
@@ -35,11 +35,13 @@ const ThemeSelector = ({ onSelected }: ChildProps) => {
     <>
       <div className="py-1 px-6">
         <Button onClick={() => setOpen(true)} className="w-full cursor-pointer">
-          {t('template')}
+          {t("template")}
         </Button>
       </div>
       <Modal open={open} onClose={() => setOpen(false)}>
-        <h2 className="font-semibold text-xl text-center">{t('select_template')}</h2>
+        <h2 className="font-semibold text-xl text-center">
+          {t("select_template")}
+        </h2>
 
         <div className="p-4 bg-blue-50 rounded-md overflow-y-auto max-h-[80vh] mt-5 custom-scrollbar">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -51,7 +53,12 @@ const ThemeSelector = ({ onSelected }: ChildProps) => {
                     item?.id === meme.id &&
                       "border-2 rounded-lg border-gray-500 opacity-60"
                   )}
-                  onDoubleClick={() => onSelected(meme, setOpen(false))}
+                  onDoubleClick={() => {
+                    meme
+                    if (meme) {
+                      setOpen(false);
+                    }
+                  }}
                   onClick={() => setItem(meme)}
                 >
                   <img
