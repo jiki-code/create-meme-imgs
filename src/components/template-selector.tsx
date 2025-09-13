@@ -8,7 +8,6 @@ import {ChangeThemeProps, ThemeSelect} from "../app/types/general"
 import { useTranslation } from "react-i18next";
 export default function ThemeSelected({ onImageUpload }: ChangeThemeProps) {
   const handleSelectTemplate = (template: ThemeSelect) => {
-     console.log("🚀 ~ handleSelectTemplate ~ template:", template)
      onImageUpload(template)
   };
     const { t } = useTranslation("common"); 
