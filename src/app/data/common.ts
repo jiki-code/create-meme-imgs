@@ -54,19 +54,47 @@ export const memes: Meme[] = [
     id: "10",
     title: "Mocking Spongebob",
     url: "https://i.imgflip.com/1otk96.jpg"
+  },
+  {
+    id: "11",
+    title: "Surprised Pikachu",
+    url: "https://i.imgflip.com/2kbn1e.jpg"
+  },
+  {
+    id: "12",
+    title: "Is This a Pigeon?",
+    url: "https://i.imgflip.com/1o00in.jpg"
+  },
+  {
+    id: "13",
+    title: "One Does Not Simply",
+    url: "https://i.imgflip.com/1bij.jpg"
+  },
+  {
+    id: "14",
+    title: "Success Kid",
+    url: "https://i.imgflip.com/1bhk.jpg"
+  },
+  {
+    id: "15",
+    title: "Futurama Fry",
+    url: "https://i.imgflip.com/1bgw.jpg"
   }
-]
+];
+
+
 
 export const waterMark: string = "laoho.tv";
 
 export const colorBackground: string[] = [
   "#c9c9c9",
-  "#539fc2ff",
-  "#10b981",
+  "#29b6f7ff",
+  "#12e671ff",
   "#f97316",
-  "#be895dff",
   "#333",
-  "#eef079ff",
+  "#e4e710ff",
+  "#f12525ff",
+  "#f851d4ff",
 ];
 
 export const acceptedImageTypes: string[] = [
@@ -80,12 +108,18 @@ export const acceptedImageTypes: string[] = [
   "image/x-icon",
 ];
 
-export const languageList: any = [
+interface Option<T extends string | number> {
+  label: string;
+  value: T;
+}
+
+
+export const languageList: Option<string>[] = [
   { label: "Vietnamese", value: "vi" },
   { label: "English", value: "en" },
 ];
 
-export const fontList: any = [
+export const fontList: Option<string>[] = [
   { label: "Arial", value: "Arial, sans-serif" },
   { label: "Times New Roman", value: "'Times New Roman', serif" },
   { label: "Courier New", value: "'Courier New', monospace" },

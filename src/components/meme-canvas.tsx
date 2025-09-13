@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { StageSize, TextElement } from "../app/types/meme";
-import { Upload, ImageIcon, Undo2, ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
+import { Upload, ImageIcon, Undo2, ZoomIn, ZoomOut } from "lucide-react";
 import { Stage, Layer, Image, Rect, Transformer } from "react-konva";
 import DraggableText from "./dragable-text";
 import Konva from "konva";
@@ -35,7 +35,7 @@ export default function MemeCanvas({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<Konva.Image>(null);
   const trRef = useRef<Konva.Transformer>(null);
-  const [showWatermark, setShowWatermark] = useState<Boolean>(true);
+  const [showWatermark, setShowWatermark] = useState<boolean>(true);
 
   const [imageState, setImageState] = useState<ImageState>({
     x: 0,
@@ -46,6 +46,7 @@ export default function MemeCanvas({
     rotation: 0,
   });
 
+  setShowWatermark(true)
   useEffect(() => {
     if (image && stageSize.width > 0 && stageSize.height > 0) {
       const ratio = Math.min(

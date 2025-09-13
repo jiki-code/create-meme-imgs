@@ -44,8 +44,8 @@ export default function RootLayout({
       >
         <header className="p-1 header-bg border-b relative header-sticky">
           <LanguageSwitcher />
-          <h1 className="text-3xl lg:text-4xl font-bold text-center text-black">{t("meme_tool")}</h1>
-          <p className="text-center text-lg lg:text-md my-2 text-gray-600">{t("description")}</p>
+          <h1 className="text-3xl lg:text-4xl font-bold text-center text-black ">{t("meme_tool")}</h1>
+          <p className="text-center text-lg lg:text-md mt-3 text-gray-600">{t("description")}</p>
         </header>
        <Providers>
           {children}

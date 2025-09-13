@@ -8,7 +8,7 @@ i18n
       en: {
         common: {
           welcome: "Welcome",
-          description: "Create meme from JPG, GIF or PNG (Maximum  5MB)",
+          description: "Create meme from JPG, GIF or PNG...",
           meme_tool: "MEME TOOL",
           upload_image: "Upload Image",
           text_controls: "Text Controls",
@@ -47,7 +47,7 @@ i18n
       vi: {
         common: {
           welcome: "Chào mừng",
-          description: "Tạo meme từ JPG, GIF hoặc PNG (tối đa 5MB)",
+          description: "Tạo meme từ JPG, GIF hoặc PNG",
           meme_tool: "CÔNG CỤ TẠO MEME",
           upload_image: "Tải lên hình ảnh",
           text_controls: "Điều khiển văn bản",

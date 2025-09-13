@@ -20,8 +20,9 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange, title }) => {
         defaultValue={DEFAULT_COLOR}
         id="background"
         type="color"
+        className="h-8 w-20"
         onChange={handleChange}
-        style={{ marginLeft: "8px" }}
+        style={{ marginLeft: "10px" }}
       />
     </div>
   );
