@@ -42,6 +42,7 @@ export default function RootLayout({
       <body
       className="xl:overflow-hidden overflow-scroll min-h-screen"
       >
+        <title>{t("meme_tool")}</title>
         <header className="p-1 header-bg border-b relative header-sticky">
           <LanguageSwitcher />
           <h1 className="text-3xl lg:text-4xl font-bold text-center text-black ">{t("meme_tool")}</h1>
