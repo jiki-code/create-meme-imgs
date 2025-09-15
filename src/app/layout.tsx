@@ -1,53 +1,26 @@
-"use client";
 import "./globals.css";
-import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
-import i18n from "../../public/locales/i18"; // Adjust the import path if needed
-import {SelectInput} from "../components/ui/select-input";
 import ToastProvider from "./ToastProvider";
 import { Providers } from "./Providers";
-import {languageList} from "../app/data/common"
-function LanguageSwitcher() {
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
+import type { Metadata } from "next";
+import LanguageSwitcher from "../components/language-switch"
+export const metadata: Metadata = {
+  title: "Meme Tool",
+  description: "Create meme from JPG, GIF or PNG",
+};
 
-  useEffect(() => {
-    if (!i18n.isInitialized) {
-      i18n.init();
-    }
-  }, []);
-
-  return (
-    <div className="w-full flex justify-end left-0">
-      <SelectInput
-        className="w-36 bg-white"
-        options={languageList}
-        value={i18n.language}
-        onChange={changeLanguage}
-      />
-    </div>
-  );
-}
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { t } = useTranslation("common"); // Move useTranslation inside the component
 
   return (
     <html lang="en">
       <body
       className="xl:overflow-hidden overflow-scroll min-h-screen"
       >
-        <title>{t("meme_tool")}</title>
-        <header className="p-1 header-bg border-b relative header-sticky">
-          <LanguageSwitcher />
-          <h1 className="text-3xl lg:text-4xl font-bold text-center text-black ">{t("meme_tool")}</h1>
-          <p className="text-center text-lg lg:text-md mt-3 text-gray-600">{t("description")}</p>
-        </header>
+        <LanguageSwitcher />
        <Providers>
           {children}
         </Providers>
